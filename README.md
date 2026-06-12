@@ -1,11 +1,68 @@
-# React + TypeScript + Vite
-Este template oferece uma configuração mínima para rodar React com Vite, incluindo HMR e algumas regras de ESLint.
-Atualmente dois plugins oficiais estão disponíveis:
+# MindSette.AI — Site Oficial
 
-@vitejs/plugin-react — usa Oxc
-@vitejs/plugin-react-swc — usa SWC
+> **Enquanto você dorme, seu agente trabalha.**
 
-## React Compiler
-O React Compiler não está habilitado neste template devido ao impacto na performance. Para habilitá-lo, consulte a documentação oficial.
-## Expandindo a configuração do ESLint
-Para produção, recomendamos habilitar regras de lint com verificação de tipos usando tseslint.configs.recommendedTypeChecked.
+Site institucional da [MindSette.AI](https://mindsette.ia.br) — empresa especializada em agentes de inteligência artificial, bots e automações que respondem, agendam e qualificam leads 24 horas por dia.
+
+---
+
+## 🤖 Sobre o Projeto
+
+A MindSette.AI nasceu da combinação entre visão jurídica, tecnologia e produto. Construímos agentes de IA práticos e operáveis para negócios brasileiros que precisam de automação inteligente sem complexidade.
+
+**O que entregamos:**
+- Agentes de IA conversacionais via Telegram e WhatsApp
+- Bots de atendimento e qualificação de leads
+- Automações com Python, n8n e integrações de API
+- Sistemas inteligentes com deploy rápido e operação enxuta
+
+**Siga no Instagram:** [@mindsette.ai](https://instagram.com/mindsette.ai)
+
+**Fale com a Mind:** [t.me/MindSette_bot](https://t.me/MindSette_bot)
+
+---
+
+## 🛠️ Stack Técnica
+
+| Tecnologia | Uso |
+|---|---|
+| React 18 + TypeScript | Frontend |
+| Vite | Build e bundler |
+| Tailwind CSS | Estilização |
+| shadcn/ui | Componentes |
+| Flask + Python | API Mind (backend) |
+| Claude Haiku (Anthropic) | Motor de IA |
+| Oracle Cloud | Servidor (PM2) |
+| Vercel | Deploy do frontend |
+| Let's Encrypt | SSL |
+
+---
+
+## 🚀 Rodando Localmente
+
+```bash
+# Instalar dependências
+npm install
+
+# Rodar em desenvolvimento
+npm run dev
+
+# Build para produção
+npm run build
+```
+
+---
+
+## 🌐 Links
+
+| | |
+|---|---|
+| Site | [mindsette.ia.br](https://mindsette.ia.br) |
+| API | [api.mindsette.ia.br](https://api.mindsette.ia.br/api/mind/health) |
+| Instagram | [@mindsette.ai](https://instagram.com/mindsette.ai) |
+| Bot Telegram | [@MindSette_bot](https://t.me/MindSette_bot) |
+| GitHub | [msette-jr](https://github.com/msette-jr) |
+
+---
+
+*Construído com 🧠 por Marcelo Sette. msettejunior@icloud.com :)
