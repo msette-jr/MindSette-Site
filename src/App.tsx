@@ -160,9 +160,20 @@ function MindChat() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [conversas, setConversas] = useState<number | null>(null)
   const boxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { boxRef.current?.scrollTo({ top: boxRef.current.scrollHeight, behavior: 'smooth' }) }, [msgs, loading])
+
+  const fetchStats = useCallback(async () => {
+    try {
+      const res = await fetch(API_URL + '/stats')
+      const data = await res.json()
+      setConversas(data.conversas ?? null)
+    } catch { /* silencioso */ }
+  }, [])
+
+  useEffect(() => { fetchStats() }, [])
 
   const send = useCallback(async () => {
     const text = input.trim()
@@ -186,6 +197,7 @@ function MindChat() {
       setMsgs((m) => [...m, { role: 'assistant', content: 'Conexão indisponível. Me chama no Telegram que respondo na hora.' }])
     } finally {
       setLoading(false)
+      fetchStats()
     }
   }, [input, loading, msgs])
 
@@ -198,6 +210,11 @@ function MindChat() {
           <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] live-dot" /> NEURAL INTERFACE ACTIVE
           </div>
+          {conversas !== null && (
+            <div className="font-mono text-[10px] text-[#3a4154] tracking-widest mt-0.5">
+              <span className="text-[#FF5500]">{conversas.toLocaleString('pt-BR')}</span> conversas iniciadas
+            </div>
+          )}
         </div>
         <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
            className="ml-auto font-mono text-xs px-3.5 py-2 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm">
