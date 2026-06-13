@@ -128,3 +128,23 @@ h1 {
   -webkit-text-stroke: 0 !important;
   paint-order: fill !important;
 }
+
+/* ── RESET GLOW — só neon, sem vazar no branco ── */
+h1 {
+  text-shadow: none !important;
+  font-weight: 900 !important;
+}
+
+.glow-orange {
+  color: #FF5500 !important;
+  text-shadow:
+    0 0 12px rgba(255,85,0,0.8),
+    0 0 30px rgba(255,85,0,0.35) !important;
+}
+
+.glow-ice {
+  color: #00FFE5 !important;
+  text-shadow:
+    0 0 12px rgba(0,255,229,0.8),
+    0 0 30px rgba(0,255,229,0.35) !important;
+}
