@@ -209,24 +209,20 @@ function MindChat() {
           <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] live-dot" /> NEURAL INTERFACE ACTIVE
           </div>
-          {conversas !== null && (
-            <div className="font-mono text-[10px] text-[#3a4154] tracking-widest mt-0.5">
-              <span className="text-[#FF5500]">{conversas.toLocaleString('pt-BR')}</span> conversas iniciadas
-            </div>
-          )}
+
         </div>
         <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
            className="ml-auto font-mono text-xs px-3.5 py-2 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm">
           ✈ TELEGRAM
         </a>
       </div>
-      <div ref={boxRef} className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#07080c]">
+      <div ref={boxRef} className="flex-1 overflow-y-auto p-6 space-y-5 bg-[#060709]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md ${
               m.role === 'user'
                 ? 'bg-[#FF5500] text-black font-medium'
-                : 'bg-[#10131c] border border-[#1c2230] text-[#cfd6e4]'
+                : 'bg-[#0e1018] border border-[#2a3346] text-[#cfd6e4]'
             }`}>{m.content}</div>
           </div>
         ))}
@@ -238,13 +234,13 @@ function MindChat() {
           </div>
         )}
       </div>
-      <div className="p-4 border-t border-[#1c2230] bg-[#0d0f16] flex gap-3">
+      <div className="p-4 border-t-2 border-[#1c2230] bg-[#0a0c14] flex gap-3">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
-          placeholder="> pergunte sobre automação, bots, agentes..."
-          className="flex-1 bg-[#07080c] border border-[#1c2230] rounded-sm px-4 py-3 text-[15px] font-mono outline-none focus:border-[#FF5500] transition-colors placeholder:text-[#3a4154]"
+          placeholder="pergunte sobre automação, bots, agentes de IA..."
+          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500] focus:bg-[#0d1020] transition-all placeholder:text-[#4a5568] text-white"
         />
         <button onClick={send} disabled={loading}
           className="px-6 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40">
@@ -410,8 +406,8 @@ export default function App() {
       {/* NAVBAR */}
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#050507]/80 border-b border-[#161a26]">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-extrabold text-2xl tracking-tight">
-            MindSette<span className="text-[#FF5500]">.AI</span>
+          <div className="font-extrabold text-3xl tracking-tight">
+            Mind<span className="text-white">Sette</span><span className="text-[#FF5500]">.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
