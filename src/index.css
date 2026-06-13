@@ -208,3 +208,31 @@ h1 {
     letter-spacing: 0.1em !important;
   }
 }
+
+/* ── RESPONSIVIDADE MOBILE — PARTE 2 ── */
+@media (max-width: 768px) {
+
+  /* Remove espaço vazio após botões */
+  header {
+    padding-bottom: 2rem !important;
+    min-height: auto !important;
+  }
+
+  /* Mostra imagem da MIND no mobile */
+  header .hidden.lg\\:block {
+    display: block !important;
+    margin-top: 2rem !important;
+  }
+
+  header .hidden.lg\\:block img {
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    opacity: 0.85 !important;
+  }
+
+  /* Grid hero vira coluna */
+  header .grid.lg\\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
