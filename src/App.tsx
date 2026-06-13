@@ -475,22 +475,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* TERMINAL */}
-      <section id="agente" className="relative z-10 py-28 px-6 bg-[#06070b]">
-        <div className="max-w-4xl mx-auto">
-          <div className="reveal mb-12 text-center">
-            <div className="font-mono text-[12px] text-[#00FFE5] mb-3 tracking-[0.25em]">// SÃO 3H DA MANHÃ</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Você dorme. <span className="text-[#FF5500] glow-orange">Ele não.</span></h2>
-            <p className="text-[#7a8398] text-lg">Isto é um agente MindSette trabalhando de madrugada — de verdade.</p>
-          </div>
-          <div className="reveal"><Terminal /></div>
-          <div className="reveal grid grid-cols-3 gap-6 mt-12 text-center">
-            <div><div className="text-4xl md:text-5xl font-extrabold text-[#FF5500]"><Counter target={24} suffix="h" /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">POR DIA ATIVO</div></div>
-            <div><div className="text-4xl md:text-5xl font-extrabold text-[#00FFE5]"><Counter target={47} /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">MSGS NUMA MADRUGADA</div></div>
-            <div><div className="text-4xl md:text-5xl font-extrabold text-[#E8ECF4]"><Counter target={1} suffix="h" /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">PARA O SEU FICAR NO AR</div></div>
-          </div>
-        </div>
-      </section>
+
 
       {/* CHAT */}
       <section id="mind" className="relative z-10 py-28 px-6">
