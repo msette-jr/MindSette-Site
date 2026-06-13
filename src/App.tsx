@@ -415,7 +415,7 @@ export default function App() {
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
-            <a href="#agente" className="hover:text-[#FF5500] transition-colors">// agente_ao_vivo</a>
+            <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
             <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
           </div>
           <a href="#mind" className="font-mono text-[13px] px-4 py-2 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-wide">
@@ -486,6 +486,35 @@ export default function App() {
             <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
           </div>
           <div className="reveal"><MindChat /></div>
+        </div>
+      </section>
+
+      {/* CONTATO */}
+      <section id="contato" className="relative z-10 py-28 px-6 bg-[#06070b]">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="reveal mb-10">
+            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// RESPONSÁVEL PELO PROJETO</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Marcelo <span className="text-[#00FFE5] glow-ice">Sette</span></h2>
+            <p className="text-[#7a8398] text-lg mb-2">Fundador da MindSette.AI — Advogado & Desenvolvedor</p>
+            <p className="text-[#7a8398] text-base">Especialista em IA aplicada, automações e bots para negócios brasileiros.</p>
+          </div>
+          <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
+            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
+            <div className="flex flex-col gap-4">
+              <a href="mailto:msettejunior@icloud.com"
+                className="flex items-center gap-3 px-6 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold font-mono text-sm hover:brightness-110 transition justify-center tracking-wide">
+                ✉ msettejunior@icloud.com
+              </a>
+              <a href="https://instagram.com/mindsette.ai" target="_blank" rel="noreferrer"
+                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
+                ◉ @mindsette.ai
+              </a>
+              <a href="https://t.me/MindSette_bot" target="_blank" rel="noreferrer"
+                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
+                ✈ Telegram — @MindSette_bot
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
