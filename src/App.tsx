@@ -410,9 +410,9 @@ export default function App() {
             Mind<span className="text-white">Sette</span><span className="text-[#FF5500]">.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
+            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
-            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
           </div>
           <a href="#mind" className="font-mono text-[13px] px-4 py-2 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-wide">
             INICIAR →
