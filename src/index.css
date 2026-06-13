@@ -163,3 +163,48 @@ h1 {
     0 0 6px rgba(0,255,229,0.6),
     0 0 18px rgba(0,255,229,0.2) !important;
 }
+
+/* ── RESPONSIVIDADE MOBILE — PARTE 1 ── */
+@media (max-width: 768px) {
+
+  /* Hero: título menor e mais compacto */
+  h1 {
+    font-size: 2.6rem !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Subtítulo menor */
+  header p {
+    font-size: 1rem !important;
+  }
+
+  /* Botões: full width empilhados com espaço */
+  header .flex.flex-col {
+    gap: 12px !important;
+  }
+
+  header a[href="#mind"],
+  header a[href="#agente"] {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 16px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Botão outline: borda mais visível */
+  header a[href="#agente"] {
+    border: 1.5px solid #00FFE5 !important;
+    color: #00FFE5 !important;
+  }
+
+  /* HUD panels: esconde no mobile */
+  .grid.grid-cols-2.gap-4.mt-12 {
+    display: none !important;
+  }
+
+  /* Label do sistema: quebra menos */
+  header .font-mono.text-\[12px\] {
+    font-size: 10px !important;
+    letter-spacing: 0.1em !important;
+  }
+}
