@@ -97,3 +97,10 @@ code, pre, kbd, samp,
 [class*="font-mono"] {
   font-family: 'JetBrains Mono', ui-monospace, monospace !important;
 }
+
+/* ── ANTI-ALIASING ── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
