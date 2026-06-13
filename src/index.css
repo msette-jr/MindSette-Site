@@ -148,3 +148,18 @@ h1 {
     0 0 12px rgba(0,255,229,0.8),
     0 0 30px rgba(0,255,229,0.35) !important;
 }
+
+/* ── GLOW FINAL — suave e controlado ── */
+.glow-orange {
+  color: #FF5500 !important;
+  text-shadow:
+    0 0 6px rgba(255,85,0,0.6),
+    0 0 18px rgba(255,85,0,0.2) !important;
+}
+
+.glow-ice {
+  color: #00FFE5 !important;
+  text-shadow:
+    0 0 6px rgba(0,255,229,0.6),
+    0 0 18px rgba(0,255,229,0.2) !important;
+}
