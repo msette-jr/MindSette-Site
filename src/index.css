@@ -84,3 +84,16 @@ body {
 ::-webkit-scrollbar-track { background: #08080c; }
 ::-webkit-scrollbar-thumb { background: #232634; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ms-orange); }
+
+/* ── FORÇA FONTES ── */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+html, body, * {
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+code, pre, kbd, samp,
+.font-mono,
+[class*="font-mono"] {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+}
