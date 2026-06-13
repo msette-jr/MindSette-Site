@@ -442,7 +442,7 @@ export default function App() {
               <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
                 FALAR COM A MIND
               </a>
-              <a href="#agente" className="px-8 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono font-bold text-base hover:border-[#00FFE5] transition text-center tracking-wide">
+              <a href="#mind" className="px-8 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono font-bold text-base hover:border-[#00FFE5] transition text-center tracking-wide">
                 VER AGENTE AO VIVO
               </a>
             </div>
