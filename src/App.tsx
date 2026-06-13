@@ -540,6 +540,18 @@ export default function App() {
         </div>
       </header>
 
+      {/* CHAT */}
+      <section id="mind" className="relative z-10 py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="reveal mb-12 text-center">
+            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
+            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
+          </div>
+          <div className="reveal"><MindChat /></div>
+        </div>
+      </section>
+
       {/* SERVIÇOS */}
       <section id="servicos" className="relative z-10 py-28 px-6">
         <div className="max-w-6xl mx-auto">
@@ -559,18 +571,6 @@ export default function App() {
       </section>
 
 
-
-      {/* CHAT */}
-      <section id="mind" className="relative z-10 py-28 px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="reveal mb-12 text-center">
-            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
-            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
-          </div>
-          <div className="reveal"><MindChat /></div>
-        </div>
-      </section>
 
       {/* CONTATO */}
       <section id="contato" className="relative z-10 py-28 px-6 bg-[#06070b]">
