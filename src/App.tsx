@@ -513,6 +513,10 @@ export default function App() {
                 className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
                 ✈ Telegram — @MindSette_bot
               </a>
+              <a href="https://github.com/msette-jr" target="_blank" rel="noreferrer"
+                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
+                ⌥ github.com/msette-jr
+              </a>
             </div>
           </div>
         </div>
