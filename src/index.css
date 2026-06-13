@@ -104,3 +104,27 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+/* ── GLOW CORRIGIDO — externo, sólido, neon ── */
+.glow-orange {
+  color: #FF5500 !important;
+  text-shadow:
+    0 0 8px rgba(255,85,0,0.95),
+    0 0 20px rgba(255,85,0,0.7),
+    0 0 45px rgba(255,85,0,0.4) !important;
+}
+
+.glow-ice {
+  color: #00FFE5 !important;
+  text-shadow:
+    0 0 8px rgba(0,255,229,0.95),
+    0 0 20px rgba(0,255,229,0.7),
+    0 0 45px rgba(0,255,229,0.4) !important;
+}
+
+/* Título hero — força peso máximo e rendering sólido */
+h1 {
+  font-weight: 900 !important;
+  -webkit-text-stroke: 0 !important;
+  paint-order: fill !important;
+}
