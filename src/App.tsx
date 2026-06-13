@@ -89,9 +89,6 @@ function HudPanel({ title, lines, accent = false }: { title: string; lines: [str
         </div>
       ))}
       <div className="data-bar mt-3" />
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
@@ -150,9 +147,6 @@ function Terminal() {
         ))}
         <span className="cursor-blink text-[#FF5500]">▮</span>
       </div>
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
@@ -253,9 +247,6 @@ function MindChat() {
           ➤
         </button>
       </div>
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
@@ -268,9 +259,6 @@ function ServiceCard({ num, title, desc }: { num: string; title: string; desc: s
       <h3 className="text-2xl font-extrabold mb-3 text-[#E8ECF4] group-hover:text-[#00FFE5] transition-colors">{title}</h3>
       <p className="text-[#7a8398] leading-relaxed text-[15px]">{desc}</p>
       <div className="mt-6 h-[2px] w-10 bg-[#FF5500] group-hover:w-full transition-all duration-500" />
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
@@ -404,113 +392,10 @@ function HeroTerminal() {
           {currentLine}<span className="cursor-blink text-[#FF5500]">▮</span>
         </div>
       </div>
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
 
-
-
-// ── Cookie Consent ────────────────────────────────────────────────
-function CookieConsent() {
-  const [visible, setVisible] = useState(() => !localStorage.getItem('ms_cookies'))
-  const [showDetails, setShowDetails] = useState(false)
-  const [prefs, setPrefs] = useState({ analytics: true, marketing: false })
-
-  const accept = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: true, ...prefs }))
-    setVisible(false)
-  }
-  const savePrefs = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify(prefs))
-    setVisible(false)
-  }
-  const reject = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: false }))
-    setVisible(false)
-  }
-
-  if (!visible) return null
-
-  return (
-    <div className="fixed bottom-0 inset-x-0 z-[200] p-4 md:p-6">
-      <div className="max-w-4xl mx-auto hud-box tech-border bg-[#0a0c14] border border-[#2a3346] rounded-sm p-6">
-        {!showDetails ? (
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-            <div className="flex-1">
-              <div className="font-mono text-[11px] text-[#FF5500] tracking-widest mb-2">// POLÍTICA DE COOKIES</div>
-              <p className="text-[#7a8398] text-sm leading-relaxed">
-                Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa{' '}
-                <button onClick={() => setShowDetails(true)} className="text-[#00FFE5] underline hover:text-[#FF5500] transition-colors">
-                  política de cookies
-                </button>.
-              </p>
-            </div>
-            <div className="flex gap-3 flex-shrink-0">
-              <button onClick={reject}
-                className="font-mono text-xs px-4 py-2.5 border border-[#2a3346] text-[#5A6275] hover:border-[#FF5500] hover:text-[#FF5500] transition-all rounded-sm tracking-wider">
-                REJEITAR
-              </button>
-              <button onClick={() => setShowDetails(true)}
-                className="font-mono text-xs px-4 py-2.5 border border-[#00FFE5]/40 text-[#00FFE5] hover:border-[#00FFE5] transition-all rounded-sm tracking-wider">
-                PREFERÊNCIAS
-              </button>
-              <button onClick={accept}
-                className="font-mono text-xs px-5 py-2.5 bg-[#FF5500] text-black font-bold hover:brightness-110 transition-all rounded-sm tracking-wider">
-                ACEITAR TUDO
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="font-mono text-[11px] text-[#FF5500] tracking-widest mb-4">// GERENCIAR PREFERÊNCIAS</div>
-            <div className="space-y-3 mb-5">
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230] rounded-sm">
-                <div>
-                  <div className="font-mono text-sm text-white">Cookies Essenciais</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Necessários para o funcionamento do site</div>
-                </div>
-                <span className="font-mono text-[11px] text-[#00FFE5] tracking-wider">SEMPRE ATIVO</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230] rounded-sm">
-                <div>
-                  <div className="font-mono text-sm text-white">Cookies de Analytics</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Nos ajudam a entender como você usa o site</div>
-                </div>
-                <button onClick={() => setPrefs(p => ({ ...p, analytics: !p.analytics }))}
-                  className={`w-10 h-5 rounded-full transition-colors relative ${prefs.analytics ? 'bg-[#FF5500]' : 'bg-[#2a3346]'}`}>
-                  <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${prefs.analytics ? 'left-5' : 'left-0.5'}`} />
-                </button>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230] rounded-sm">
-                <div>
-                  <div className="font-mono text-sm text-white">Cookies de Marketing</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Usados para anúncios personalizados</div>
-                </div>
-                <button onClick={() => setPrefs(p => ({ ...p, marketing: !p.marketing }))}
-                  className={`w-10 h-5 rounded-full transition-colors relative ${prefs.marketing ? 'bg-[#FF5500]' : 'bg-[#2a3346]'}`}>
-                  <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${prefs.marketing ? 'left-5' : 'left-0.5'}`} />
-                </button>
-              </div>
-            </div>
-            <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowDetails(false)}
-                className="font-mono text-xs px-4 py-2.5 border border-[#2a3346] text-[#5A6275] hover:text-white transition-all rounded-sm tracking-wider">
-                VOLTAR
-              </button>
-              <button onClick={savePrefs}
-                className="font-mono text-xs px-5 py-2.5 bg-[#FF5500] text-black font-bold hover:brightness-110 transition-all rounded-sm tracking-wider">
-                SALVAR
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
 
 export default function App() {
   useReveal()
@@ -525,9 +410,9 @@ export default function App() {
             Mind<span className="text-white">Sette</span><span className="text-[#FF5500]">.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
-            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
+            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
           </div>
           <a href="#mind" className="font-mono text-[13px] px-4 py-2 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-wide">
             INICIAR →
@@ -535,23 +420,38 @@ export default function App() {
         </div>
       </nav>
 
-      
-
-
-
-
-      {/* CHAT */}
-      <section id="mind" className="relative z-10 py-28 px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="reveal mb-12 text-center">
-            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
-            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
+      {/* HERO com a logo */}
+      <header className="relative z-10 min-h-screen flex items-center px-6 pt-20 pb-12">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <div className="font-mono text-[12px] text-[#00FFE5] tracking-[0.25em] mb-6 reveal visible">
+              // MIND_SYSTEM_V5.8 — NEURAL INTERFACE <span className="text-[#FF5500]">ACTIVE</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.06] mb-7">
+              Enquanto você dorme,<br />
+              <span className="text-[#FF5500] glow-orange">seu agente trabalha.</span>
+            </h1>
+            <p className="text-lg text-[#7a8398] max-w-xl mb-10 leading-relaxed">
+              Agentes de IA, bots e automações que respondem, agendam e qualificam — 24 horas por dia, do jeito que o seu negócio precisa.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
+                FALAR COM A MIND
+              </a>
+              <a href="#mind" className="px-8 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono font-bold text-base hover:border-[#00FFE5] transition text-center tracking-wide">
+                VER AGENTE AO VIVO
+              </a>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mt-12 max-w-md">
+              <HudPanel title="PROCESSING.." accent lines={[['uptime', '97.3%'], ['data stream', 'secure'], ['link', 'encrypted']]} />
+              <HudPanel title="CORE STATUS" lines={[['learning core', 'adaptive'], ['personality', 'stable'], ['sys id', 'MND-7X21']]} />
+            </div>
           </div>
-          <div className="reveal"><MindChat /></div>
+          <div className="relative">
+            <HeroTerminal />
+          </div>
         </div>
-      </section>
-
+      </header>
 
       {/* SERVIÇOS */}
       <section id="servicos" className="relative z-10 py-28 px-6">
@@ -571,6 +471,19 @@ export default function App() {
         </div>
       </section>
 
+
+
+      {/* CHAT */}
+      <section id="mind" className="relative z-10 py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="reveal mb-12 text-center">
+            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
+            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
+          </div>
+          <div className="reveal"><MindChat /></div>
+        </div>
+      </section>
 
       {/* CONTATO */}
       <section id="contato" className="relative z-10 py-28 px-6 bg-[#06070b]">
@@ -627,9 +540,6 @@ export default function App() {
           © 2026 MINDSETTE.AI — JOÃO PESSOA, PB // SYS ID: MND-7X21
         </div>
       </footer>
-      {/* COOKIES */}
-      <CookieConsent />
-
     </div>
   )
 }
