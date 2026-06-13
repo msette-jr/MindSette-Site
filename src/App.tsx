@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { LUNA_HERO as lunaHero } from './assets/lunaHeroB64'
 
 // ════════════════════════════════════════════════════════════════
 // CONFIG — NO DEPLOY ORACLE: troque API_URL pelo endpoint do proxy
@@ -268,6 +267,140 @@ function ServiceCard({ num, title, desc }: { num: string; title: string; desc: s
   )
 }
 
+
+// ── Hero Terminal — digitação de scripts Python ──────────────────
+const PYTHON_SCRIPTS = [
+  {
+    filename: 'agente_qualificacao.py',
+    lines: [
+      'import anthropic, json',
+      'from telegram import Bot',
+      '',
+      'client = anthropic.Anthropic()',
+      'bot = Bot(token=TELEGRAM_TOKEN)',
+      '',
+      '# [03:00:14] processando lead #12...',
+      'def qualificar_lead(mensagem: str) -> dict:',
+      '    response = client.messages.create(',
+      '        model="claude-haiku-4-5",',
+      '        system=SYSTEM_PROMPT,',
+      '        messages=[{"role":"user","content":mensagem}]',
+      '    )',
+      '    return json.loads(response.content[0].text)',
+      '',
+      '# [03:00:21] ✓ lead qualificado',
+      '# [03:00:22] ✓ agendamento confirmado',
+      '# [03:01:02] ✓ 23 respostas enviadas',
+    ]
+  },
+  {
+    filename: 'automacao_relatorio.py',
+    lines: [
+      'import schedule, time',
+      'from datetime import datetime',
+      '',
+      '# [03:00:01] iniciando automação...',
+      'def gerar_relatorio_diario():',
+      '    dados = buscar_dados_crm()',
+      '    relatorio = processar_com_ia(dados)',
+      '    enviar_email(relatorio)',
+      '    print(f"[{datetime.now()}] ✓ enviado")',
+      '',
+      'schedule.every().day.at("07:00").do(',
+      '    gerar_relatorio_diario',
+      ')',
+      '',
+      'while True:',
+      '    schedule.run_pending()',
+      '    time.sleep(60)',
+      '',
+      '# [03:01:00] ✓ sistema ativo',
+    ]
+  }
+]
+
+function HeroTerminal() {
+  const [scriptIdx, setScriptIdx] = useState(0)
+  const [lineIdx, setLineIdx] = useState(0)
+  const [charIdx, setCharIdx] = useState(0)
+  const [displayed, setDisplayed] = useState<string[]>([])
+  const [currentLine, setCurrentLine] = useState('')
+  const termRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const script = PYTHON_SCRIPTS[scriptIdx]
+    const lines = script.lines
+    if (lineIdx >= lines.length) {
+      const t = setTimeout(() => {
+        setScriptIdx((i) => (i + 1) % PYTHON_SCRIPTS.length)
+        setLineIdx(0); setCharIdx(0); setDisplayed([]); setCurrentLine('')
+      }, 3000)
+      return () => clearTimeout(t)
+    }
+    const line = lines[lineIdx]
+    if (charIdx < line.length) {
+      const t = setTimeout(() => {
+        setCurrentLine(line.slice(0, charIdx + 1))
+        setCharIdx((c) => c + 1)
+      }, line.startsWith('#') ? 28 : 20)
+      return () => clearTimeout(t)
+    } else {
+      const t = setTimeout(() => {
+        setDisplayed((d) => [...d, line])
+        setCurrentLine(''); setCharIdx(0); setLineIdx((l) => l + 1)
+      }, line === '' ? 80 : 100)
+      return () => clearTimeout(t)
+    }
+  }, [scriptIdx, lineIdx, charIdx])
+
+  useEffect(() => {
+    termRef.current?.scrollTo({ top: termRef.current.scrollHeight, behavior: 'smooth' })
+  }, [displayed, currentLine])
+
+  const script = PYTHON_SCRIPTS[scriptIdx]
+  const getColor = (line: string) => {
+    if (line.startsWith('#')) return '#5A6275'
+    if (line.startsWith('import') || line.startsWith('from')) return '#00FFE5'
+    if (line.includes('def ')) return '#FF5500'
+    if (line.includes('✓')) return '#FF5500'
+    if (line.includes('"') || line.includes("'")) return '#a8c7fa'
+    return '#E8ECF4'
+  }
+
+  return (
+    <div className="hud-box tech-border overflow-hidden w-full">
+      <div className="flex items-center gap-2 px-4 py-3 bg-[#0d0f16] border-b border-[#1c2230]">
+        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <span className="font-mono text-[12px] text-[#5A6275] ml-3">
+          ~/mindsette/<span className="text-[#00FFE5]">{script.filename}</span>
+        </span>
+        <span className="ml-auto flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#FF5500] live-dot" />
+          <span className="font-mono text-[10px] text-[#FF5500] tracking-widest">AO VIVO</span>
+        </span>
+      </div>
+      <div ref={termRef} className="p-5 font-mono text-[13px] leading-relaxed bg-[#07080c] overflow-y-auto" style={{ height: 340 }}>
+        <div className="text-[#5A6275] mb-2 text-[11px]">
+          <span className="text-[#FF5500]">mind@mindsette</span>
+          <span className="text-[#3a4154]">:~$ </span>
+          <span className="text-[#00FFE5]">python3 {script.filename}</span>
+        </div>
+        {displayed.map((line, i) => (
+          <div key={i} style={{ color: getColor(line), minHeight: '1.5rem' }}>
+            {line === '' ? '\u00A0' : line}
+          </div>
+        ))}
+        <div style={{ color: getColor(currentLine), minHeight: '1.5rem' }}>
+          {currentLine}<span className="cursor-blink text-[#FF5500]">▮</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
 export default function App() {
   useReveal()
   return (
@@ -318,13 +451,8 @@ export default function App() {
               <HudPanel title="CORE STATUS" lines={[['learning core', 'adaptive'], ['personality', 'stable'], ['sys id', 'MND-7X21']]} />
             </div>
           </div>
-          <div className="relative hidden lg:block">
-            <div className="float-slow relative">
-              <img src={lunaHero} alt="MindSette.AI" className="w-full max-w-[440px] mx-auto rounded-md"
-                   style={{ maskImage: 'linear-gradient(180deg, black 78%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 78%, transparent 100%)' }} />
-              <div className="absolute -inset-6 -z-10 opacity-40"
-                   style={{ background: 'radial-gradient(ellipse at center, rgba(138,180,248,0.14), transparent 65%)' }} />
-            </div>
+          <div className="relative">
+            <HeroTerminal />
           </div>
         </div>
       </header>
