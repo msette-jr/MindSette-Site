@@ -264,3 +264,37 @@ h1 {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ── BORDAS MAIS VISÍVEIS ── */
+.tech-border {
+  border: 1px solid #2a3346 !important;
+}
+
+.hud-box::before, .hud-box::after {
+  border-color: rgba(255,85,0,0.9) !important;
+  width: 22px !important;
+  height: 22px !important;
+}
+
+/* Logo navbar maior */
+nav .font-extrabold {
+  font-size: 1.4rem !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Hero grid — terminal ocupa mais */
+header .grid.lg\\:grid-cols-2 {
+  grid-template-columns: 1fr 1.1fr !important;
+  gap: 2rem !important;
+}
+
+/* Chat Mind — input mais visível */
+#mind input {
+  border-color: #2a3346 !important;
+  font-size: 14px !important;
+}
+
+#mind input:focus {
+  border-color: #FF5500 !important;
+  box-shadow: 0 0 0 1px rgba(255,85,0,0.3) !important;
+}

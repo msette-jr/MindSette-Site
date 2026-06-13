@@ -201,7 +201,7 @@ function MindChat() {
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 540 }}>
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 620 }}>
       <div className="flex items-center gap-3 px-5 py-4 bg-[#0d0f16] border-b border-[#1c2230]">
         <div className="w-10 h-10 rounded-sm border border-[#FF5500] flex items-center justify-center font-mono font-bold text-[#FF5500]">M</div>
         <div>
@@ -381,7 +381,7 @@ function HeroTerminal() {
           <span className="font-mono text-[10px] text-[#FF5500] tracking-widest">AO VIVO</span>
         </span>
       </div>
-      <div ref={termRef} className="p-5 font-mono text-[13px] leading-relaxed bg-[#07080c] overflow-y-auto" style={{ height: 340 }}>
+      <div ref={termRef} className="p-5 font-mono text-[13px] leading-relaxed bg-[#07080c] overflow-y-auto" style={{ height: 420 }}>
         <div className="text-[#5A6275] mb-2 text-[11px]">
           <span className="text-[#FF5500]">mind@mindsette</span>
           <span className="text-[#3a4154]">:~$ </span>
@@ -410,7 +410,7 @@ export default function App() {
       {/* NAVBAR */}
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#050507]/80 border-b border-[#161a26]">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-extrabold text-xl tracking-tight">
+          <div className="font-extrabold text-2xl tracking-tight">
             MindSette<span className="text-[#FF5500]">.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
@@ -495,8 +495,8 @@ export default function App() {
           <div className="reveal mb-10">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// RESPONSÁVEL PELO PROJETO</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Marcelo <span className="text-[#00FFE5] glow-ice">Sette</span></h2>
-            <p className="text-[#7a8398] text-lg mb-2">Fundador da MindSette.AI — Advogado & Desenvolvedor</p>
-            <p className="text-[#7a8398] text-base">Especialista em IA aplicada, automações e bots para negócios brasileiros.</p>
+            <p className="text-[#7a8398] text-lg mb-2">Fundador da MindSette.AI — Advogado & Dev em formação</p>
+            <p className="text-[#7a8398] text-base">Arquiteto de aplicações em IA, automações e bots para negócios.</p>
           </div>
           <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
             <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
