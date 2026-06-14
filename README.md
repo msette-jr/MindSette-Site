@@ -2,18 +2,18 @@
 
 > **Enquanto você dorme, seu agente trabalha.**
 
-Site institucional da [MindSette.AI](https://mindsette.ia.br) — empresa especializada em agentes de inteligência artificial, bots e automações que respondem, agendam e qualificam leads 24 horas por dia.
+Site institucional da [MindSette.AI](https://mindsette.ia.br) — Projeto especializado em criação agentes de inteligência artificial, bots e automações que respondem, agendam e qualificam leads 24 horas por dia.
 
 ---
 
 ## 🤖 Sobre o Projeto
 
-A MindSette.AI nasceu da combinação entre visão jurídica, tecnologia e produto. Construímos agentes de IA práticos e operáveis para negócios brasileiros que precisam de automação inteligente sem complexidade.
+A MindSette.AI nasceu da combinação entre visão jurídica, tecnologia e produto. Construímos agentes de IA práticos e operáveis para negócios que precisam de automação inteligente sem complexidade.
 
 **O que entregamos:**
 - Agentes de IA conversacionais via Telegram e WhatsApp
 - Bots de atendimento e qualificação de leads
-- Automações com Python, n8n e integrações de API
+- Automações com Python, n8n, OpenClaw e integrações de API
 - Sistemas inteligentes com deploy rápido e operação enxuta
 
 **Siga no Instagram:** [@mindsette.ai](https://instagram.com/mindsette.ai)
