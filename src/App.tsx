@@ -501,7 +501,7 @@ export default function App() {
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
           </div>
-          <a href="#mind" className="font-mono text-[13px] px-4 py-2 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-wide">
+          <a href="#mind" className="font-mono text-[13px] px-6 py-3 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-widest">
             INICIAR →
           </a>
         </div>
@@ -518,14 +518,14 @@ export default function App() {
               Enquanto você dorme,<br />
               <span className="text-[#FF5500] glow-orange">seu agente trabalha.</span>
             </h1>
-            <p className="text-lg text-[#7a8398] max-w-sm mb-10 leading-relaxed">
+            <p className="text-lg text-[#7a8398] max-w-md mb-10 leading-relaxed">
               Agentes de IA, bots e automações que respondem, agendam e qualificam — 24 horas por dia, do jeito que o seu negócio precisa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#mind" className="pulse-soft px-8 py-5 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
+              <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
                 FALAR COM A MIND
               </a>
-              <a href="#servicos" className="px-8 py-5 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono font-bold text-base hover:border-[#00FFE5] transition text-center tracking-wide">
+              <a href="#servicos" className="px-8 py-4 rounded-sm border-2 border-[#00FFE5] text-[#00FFE5] font-mono font-bold text-base hover:border-[#FF5500] hover:text-[#FF5500] transition text-center tracking-wide">
                 COMO FUNCIONA →
               </a>
             </div>

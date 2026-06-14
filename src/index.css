@@ -298,3 +298,17 @@ header .grid.lg\\:grid-cols-2 {
   border-color: #FF5500 !important;
   box-shadow: 0 0 0 1px rgba(255,85,0,0.3) !important;
 }
+
+/* ── FORÇA FONTES FINAL ── */
+* {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+body, p, span, div, a, button, li {
+  font-family: 'Manrope', system-ui, sans-serif !important;
+}
+
+code, pre, .font-mono, [class*="font-mono"], input {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+}
