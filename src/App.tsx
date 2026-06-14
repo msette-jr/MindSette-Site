@@ -529,7 +529,7 @@ export default function App() {
                 VER AGENTE AO VIVO
               </a>
             </div>
-            <div className="grid grid-cols-2 gap-4 mt-12 max-w-md">
+            <div className="hidden">
               <HudPanel title="PROCESSING.." accent lines={[['uptime', '97.3%'], ['data stream', 'secure'], ['link', 'encrypted']]} />
               <HudPanel title="CORE STATUS" lines={[['learning core', 'adaptive'], ['personality', 'stable'], ['sys id', 'MND-7X21']]} />
             </div>
