@@ -509,16 +509,16 @@ export default function App() {
 
       {/* HERO com a logo */}
       <header className="relative z-10 min-h-screen flex items-center px-6 pt-20 pb-12">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
           <div>
             <div className="font-mono text-[12px] text-[#00FFE5] tracking-[0.25em] mb-6 reveal visible">
               // MIND_SYSTEM_V5.8 — NEURAL INTERFACE <span className="text-[#FF5500]">ACTIVE</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-[1.08] mb-7">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.06] mb-7">
               Enquanto você dorme,<br />
               <span className="text-[#FF5500] glow-orange">seu agente trabalha.</span>
             </h1>
-            <p className="text-base text-[#7a8398] max-w-lg mb-8 leading-relaxed">
+            <p className="text-lg text-[#7a8398] max-w-xl mb-10 leading-relaxed">
               Agentes de IA, bots e automações que respondem, agendam e qualificam — 24 horas por dia, do jeito que o seu negócio precisa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
