@@ -201,7 +201,7 @@ function MindChat() {
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 620 }}>
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 500 }}>
       <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
         <img src="/logo-mind.png" alt="Mind" className="w-11 h-11 rounded-full object-contain flex-shrink-0" />
         <div>
@@ -364,7 +364,7 @@ function HeroTerminal() {
   }
 
   return (
-    <div className="hud-box tech-border overflow-hidden w-full">
+    <div className="hud-box tech-border overflow-hidden w-full" style={{ borderLeft: "2px solid rgba(255,85,0,0.5)", boxShadow: "-4px 0 20px rgba(255,85,0,0.08)" }}>
       <div className="flex items-center gap-2 px-4 py-3 bg-[#0d0f16] border-b border-[#1c2230]">
         <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
@@ -491,7 +491,7 @@ export default function App() {
       <ParticleCanvas />
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b border-[#FF5500]/20">
+      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b-2 border-[#FF5500]/40">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-extrabold text-3xl tracking-tight">
             Mind<span className="text-[#ffffff]">Sette</span><span className="text-[#FF5500]">.AI</span>
