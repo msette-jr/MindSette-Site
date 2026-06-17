@@ -201,7 +201,7 @@ function MindChat() {
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 420 }}>
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 560 }}>
       <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
         <img src="/logo-mind.png" alt="Mind" className="w-11 h-11 rounded-full object-contain flex-shrink-0" />
         <div>
