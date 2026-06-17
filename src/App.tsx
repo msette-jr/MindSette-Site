@@ -201,7 +201,7 @@ function MindChat() {
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 500 }}>
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 420 }}>
       <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
         <img src="/logo-mind.png" alt="Mind" className="w-11 h-11 rounded-full object-contain flex-shrink-0" />
         <div>
@@ -216,7 +216,7 @@ function MindChat() {
           ✈ TELEGRAM
         </a>
       </div>
-      <div ref={boxRef} className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-[#07090e] to-[#060708]">
+      <div ref={boxRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-[#07090e] to-[#060708]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md ${
@@ -541,7 +541,7 @@ export default function App() {
       </header>
 
       {/* CHAT */}
-      <section id="mind" className="relative z-10 py-28 px-6">
+      <section id="mind" className="relative z-10 py-20 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-12 text-center">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
