@@ -203,7 +203,7 @@ function MindChat() {
   return (
     <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 620 }}>
       <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
-        <img src="/logo-mind.png" alt="Mind" className="w-10 h-10 rounded-sm object-contain" />
+        <img src="/logo-mind.png" alt="Mind" className="w-14 h-14 rounded-full object-contain flex-shrink-0" />
         <div>
           <div className="font-bold tracking-wide">MIND</div>
           <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
