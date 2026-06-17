@@ -202,7 +202,7 @@ function MindChat() {
 
   return (
     <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 620 }}>
-      <div className="flex items-center gap-3 px-5 py-4 bg-[#0d0f16] border-b border-[#1c2230]">
+      <div className="flex items-center gap-3 px-5 py-4 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
         <div className="w-10 h-10 rounded-sm border border-[#FF5500] flex items-center justify-center font-mono font-bold text-[#FF5500]">M</div>
         <div>
           <div className="font-bold tracking-wide">MIND</div>
@@ -216,13 +216,13 @@ function MindChat() {
           ✈ TELEGRAM
         </a>
       </div>
-      <div ref={boxRef} className="flex-1 overflow-y-auto p-6 space-y-5 bg-[#060709]">
+      <div ref={boxRef} className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-[#07090e] to-[#060708]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md ${
               m.role === 'user'
                 ? 'bg-[#FF5500] text-black font-medium'
-                : 'bg-[#0e1018] border border-[#2a3346] text-[#cfd6e4]'
+                : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#dde3f0] shadow-[0_0_12px_rgba(255,85,0,0.05)]'
             }`}>{m.content}</div>
           </div>
         ))}
@@ -234,13 +234,13 @@ function MindChat() {
           </div>
         )}
       </div>
-      <div className="p-4 border-t-2 border-[#1c2230] bg-[#0a0c14] flex gap-3">
+      <div className="p-4 border-t border-[#FF5500]/20 bg-[#08090f] flex gap-3">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
           placeholder="pergunte sobre automação, bots, agentes de IA..."
-          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500] focus:bg-[#0d1020] transition-all placeholder:text-[#4a5568] text-white"
+          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] focus:shadow-[0_0_16px_rgba(255,85,0,0.08)] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
         />
         <button onClick={send} disabled={loading}
           className="px-6 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40">
@@ -491,12 +491,12 @@ export default function App() {
       <ParticleCanvas />
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#050507]/80 border-b border-[#161a26]">
+      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b border-[#FF5500]/20">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-extrabold text-3xl tracking-tight">
-            Mind<span className="text-white">Sette</span><span className="text-[#FF5500]">.AI</span>
+            Mind<span className="text-[#ffffff]">Sette</span><span className="text-[#FF5500]">.AI</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
+          <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#c8d0e0] tracking-wide">
             <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
@@ -548,7 +548,7 @@ export default function App() {
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
             <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
           </div>
-          <div className="reveal"><MindChat /></div>
+          <div className="reveal shadow-[0_0_40px_rgba(255,85,0,0.06)] rounded-sm"><MindChat /></div>
         </div>
       </section>
 
