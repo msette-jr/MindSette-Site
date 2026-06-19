@@ -37,7 +37,6 @@ export default function MusicPlayer() {
   const toggle = () => {
     const audio = audioRef.current
     if (!audio) return
-
     if (playing) {
       fadeOut(audio, () => setPlaying(false))
     } else {
@@ -55,53 +54,52 @@ export default function MusicPlayer() {
       <button
         onClick={toggle}
         title={playing ? "Pausar música" : "Tocar música"}
-        className={`
-          fixed top-20 right-6 z-50git add src/components/MusicPlayer.tsx
-          w-12 h-12 rounded-full
-          flex items-center justify-center
-          border transition-all duration-300
-          ${playing
-            ? "bg-[#00FFE5]/10 border-[#00FFE5] shadow-[0_0_20px_#00FFE5aa]"
-            : "bg-[#060608]/80 border-[#FF5500]/50 hover:border-[#FF5500] hover:shadow-[0_0_16px_#FF5500aa]"
-          }
-          backdrop-blur-sm
-        `}
+        style={{
+          position: 'fixed',
+          top: '72px',
+          right: '20px',
+          zIndex: 50,
+          width: '36px',
+          height: '36px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: `1px solid ${playing ? '#00FFE5' : '#FF550066'}`,
+          background: playing ? 'rgba(0,255,229,0.08)' : 'rgba(6,6,8,0.85)',
+          boxShadow: playing ? '0 0 14px #00FFE5aa' : 'none',
+          backdropFilter: 'blur(8px)',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+        }}
       >
-        {playing ? (
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M2 8h3l4-5v18l-4-5H2V8z" fill="#00FFE5" />
-            <path d="M14 5.5a8 8 0 0 1 0 11" stroke="#00FFE5" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
-            <path d="M17 3a11 11 0 0 1 0 16" stroke="#00FFE5" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5"/>
-        </svg>
-        ) : (
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M2 8h3l4-5v18l-4-5H2V8z" fill="#FF5500" />
-            <path d="M14 5.5a8 8 0 0 1 0 11" stroke="#FF5500" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.3"/>
-        </svg>
-        )}
+        {playing ? <IconPlaying /> : <IconPaused />}
       </button>
     </>
   )
 }
 
-function Equalizer() {
+function IconPaused() {
   return (
-    <div className="flex items-end gap-[3px] h-5">
-      {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="w-[3px] bg-[#00FFE5] rounded-sm"
-          style={{
-            animation: `eq${i} 0.${4 + i}s ease-in-out infinite alternate`,
-            height: `${8 + i * 4}px`,
-          }}
-        />
-      ))}
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M1 5.5H3.5L7 1v14L3.5 10.5H1V5.5z" fill="#FF5500" />
+      <path d="M10 4a5.5 5.5 0 0 1 0 8" stroke="#FF5500" strokeWidth="1.4" strokeLinecap="round" opacity="0.4"/>
+    </svg>
+  )
+}
+
+function IconPlaying() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M1 5.5H3.5L7 1v14L3.5 10.5H1V5.5z" fill="#00FFE5" />
+      <path d="M10 4a5.5 5.5 0 0 1 0 8" stroke="#00FFE5" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M12.5 2a8 8 0 0 1 0 12" stroke="#00FFE5" strokeWidth="1.2" strokeLinecap="round" opacity="0.45"/>
       <style>{`
-        @keyframes eq1 { from { height: 4px } to { height: 16px } }
-        @keyframes eq2 { from { height: 8px } to { height: 20px } }
-        @keyframes eq3 { from { height: 4px } to { height: 12px } }
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 1 }
+          50% { opacity: 0.6 }
+        }
       `}</style>
-    </div>
+    </svg>
   )
 }
