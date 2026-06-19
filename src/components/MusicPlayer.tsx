@@ -65,9 +65,9 @@ export default function MusicPlayer() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: `1px solid ${playing ? '#00FFE5' : '#FF5500'}`,
-          background: playing ? 'rgba(0,255,229,0.08)' : 'rgba(255,85,0,0.12)',
-          boxShadow: playing ? '0 0 14px #00FFE5aa' : '0 0 14px #FF5500aa',
+          border: `1px solid ${playing ? '#00FFE5' : '#FFD700'}`,
+          background: playing ? 'rgba(0,255,229,0.08)' : 'rgba(255,215,0,0.12)',
+          boxShadow: playing ? '0 0 14px #00FFE5aa' : '0 0 14px #FFD700aa',
           backdropFilter: 'blur(8px)',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
@@ -82,9 +82,9 @@ export default function MusicPlayer() {
 function IconPaused() {
   return (
     <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
-      <path d="M1 5.5H3.5L7 1v14L3.5 10.5H1V5.5z" fill="#FF5500" />
-      <path d="M10 4a5.5 5.5 0 0 1 0 8" stroke="#FF5500" strokeWidth="1.4" strokeLinecap="round"/>
-      <path d="M12.5 2a8 8 0 0 1 0 12" stroke="#FF5500" strokeWidth="1.2" strokeLinecap="round" opacity="0.5"/>
+      <path d="M1 5.5H3.5L7 1v14L3.5 10.5H1V5.5z" fill="#FFD700" />
+      <path d="M10 4a5.5 5.5 0 0 1 0 8" stroke="#FFD700" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M12.5 2a8 8 0 0 1 0 12" stroke="#FFD700" strokeWidth="1.2" strokeLinecap="round" opacity="0.5"/>
     </svg>
   )
 }
