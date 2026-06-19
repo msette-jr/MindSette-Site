@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { LUNA_HERO as lunaHero } from './assets/lunaHeroB64'
+import MusicPlayer from './components/MusicPlayer'
 
 // ════════════════════════════════════════════════════════════════
 // CONFIG — NO DEPLOY ORACLE: troque API_URL pelo endpoint do proxy
@@ -159,20 +161,9 @@ function MindChat() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [conversas, setConversas] = useState<number | null>(null)
   const boxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { boxRef.current?.scrollTo({ top: boxRef.current.scrollHeight, behavior: 'smooth' }) }, [msgs, loading])
-
-  const fetchStats = useCallback(async () => {
-    try {
-      const res = await fetch(API_URL + '/stats')
-      const data = await res.json()
-      setConversas(data.conversas ?? null)
-    } catch { /* silencioso */ }
-  }, [])
-
-  useEffect(() => { fetchStats() }, [])
 
   const send = useCallback(async () => {
     const text = input.trim()
@@ -196,33 +187,31 @@ function MindChat() {
       setMsgs((m) => [...m, { role: 'assistant', content: 'Conexão indisponível. Me chama no Telegram que respondo na hora.' }])
     } finally {
       setLoading(false)
-      fetchStats()
     }
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 560 }}>
-      <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
-        <img src="/logo-mind.png" alt="Mind" className="w-11 h-11 rounded-full object-contain flex-shrink-0" />
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 540 }}>
+      <div className="flex items-center gap-3 px-5 py-4 bg-[#0d0f16] border-b border-[#1c2230]">
+        <div className="w-10 h-10 rounded-sm border border-[#FF5500] flex items-center justify-center font-mono font-bold text-[#FF5500]">M</div>
         <div>
           <div className="font-bold tracking-wide">MIND</div>
           <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] live-dot" /> NEURAL INTERFACE ACTIVE
           </div>
-
         </div>
         <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
            className="ml-auto font-mono text-xs px-3.5 py-2 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm">
           ✈ TELEGRAM
         </a>
       </div>
-      <div ref={boxRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-[#07090e] to-[#060708]">
+      <div ref={boxRef} className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#07080c]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md ${
               m.role === 'user'
                 ? 'bg-[#FF5500] text-black font-medium'
-                : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#dde3f0] shadow-[0_0_12px_rgba(255,85,0,0.05)]'
+                : 'bg-[#10131c] border border-[#1c2230] text-[#cfd6e4]'
             }`}>{m.content}</div>
           </div>
         ))}
@@ -234,13 +223,13 @@ function MindChat() {
           </div>
         )}
       </div>
-      <div className="p-4 border-t border-[#FF5500]/20 bg-[#08090f] flex gap-3">
+      <div className="p-4 border-t border-[#1c2230] bg-[#0d0f16] flex gap-3">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
-          placeholder="pergunte sobre automação, bots, agentes de IA..."
-          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] focus:shadow-[0_0_16px_rgba(255,85,0,0.08)] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
+          placeholder="> pergunte sobre automação, bots, agentes..."
+          className="flex-1 bg-[#07080c] border border-[#1c2230] rounded-sm px-4 py-3 text-[15px] font-mono outline-none focus:border-[#FF5500] transition-colors placeholder:text-[#3a4154]"
         />
         <button onClick={send} disabled={loading}
           className="px-6 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40">
@@ -263,294 +252,67 @@ function ServiceCard({ num, title, desc }: { num: string; title: string; desc: s
   )
 }
 
-
-// ── Hero Terminal — digitação de scripts Python ──────────────────
-const PYTHON_SCRIPTS = [
-  {
-    filename: 'agente_qualificacao.py',
-    lines: [
-      'import anthropic, json',
-      'from telegram import Bot',
-      '',
-      'client = anthropic.Anthropic()',
-      'bot = Bot(token=TELEGRAM_TOKEN)',
-      '',
-      '# [03:00:14] processando lead #12...',
-      'def qualificar_lead(mensagem: str) -> dict:',
-      '    response = client.messages.create(',
-      '        model="claude-haiku-4-5",',
-      '        system=SYSTEM_PROMPT,',
-      '        messages=[{"role":"user","content":mensagem}]',
-      '    )',
-      '    return json.loads(response.content[0].text)',
-      '',
-      '# [03:00:21] ✓ lead qualificado',
-      '# [03:00:22] ✓ agendamento confirmado',
-      '# [03:01:02] ✓ 23 respostas enviadas',
-    ]
-  },
-  {
-    filename: 'automacao_relatorio.py',
-    lines: [
-      'import schedule, time',
-      'from datetime import datetime',
-      '',
-      '# [03:00:01] iniciando automação...',
-      'def gerar_relatorio_diario():',
-      '    dados = buscar_dados_crm()',
-      '    relatorio = processar_com_ia(dados)',
-      '    enviar_email(relatorio)',
-      '    print(f"[{datetime.now()}] ✓ enviado")',
-      '',
-      'schedule.every().day.at("07:00").do(',
-      '    gerar_relatorio_diario',
-      ')',
-      '',
-      'while True:',
-      '    schedule.run_pending()',
-      '    time.sleep(60)',
-      '',
-      '# [03:01:00] ✓ sistema ativo',
-    ]
-  }
-]
-
-function HeroTerminal() {
-  const [scriptIdx, setScriptIdx] = useState(0)
-  const [lineIdx, setLineIdx] = useState(0)
-  const [charIdx, setCharIdx] = useState(0)
-  const [displayed, setDisplayed] = useState<string[]>([])
-  const [currentLine, setCurrentLine] = useState('')
-  const termRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const script = PYTHON_SCRIPTS[scriptIdx]
-    const lines = script.lines
-    if (lineIdx >= lines.length) {
-      const t = setTimeout(() => {
-        setScriptIdx((i) => (i + 1) % PYTHON_SCRIPTS.length)
-        setLineIdx(0); setCharIdx(0); setDisplayed([]); setCurrentLine('')
-      }, 3000)
-      return () => clearTimeout(t)
-    }
-    const line = lines[lineIdx]
-    if (charIdx < line.length) {
-      const t = setTimeout(() => {
-        setCurrentLine(line.slice(0, charIdx + 1))
-        setCharIdx((c) => c + 1)
-      }, line.startsWith('#') ? 28 : 20)
-      return () => clearTimeout(t)
-    } else {
-      const t = setTimeout(() => {
-        setDisplayed((d) => [...d, line])
-        setCurrentLine(''); setCharIdx(0); setLineIdx((l) => l + 1)
-      }, line === '' ? 80 : 100)
-      return () => clearTimeout(t)
-    }
-  }, [scriptIdx, lineIdx, charIdx])
-
-  useEffect(() => {
-    termRef.current?.scrollTo({ top: termRef.current.scrollHeight, behavior: 'smooth' })
-  }, [displayed, currentLine])
-
-  const script = PYTHON_SCRIPTS[scriptIdx]
-  const getColor = (line: string) => {
-    if (line.startsWith('#')) return '#5A6275'
-    if (line.startsWith('import') || line.startsWith('from')) return '#00FFE5'
-    if (line.includes('def ')) return '#FF5500'
-    if (line.includes('✓')) return '#FF5500'
-    if (line.includes('"') || line.includes("'")) return '#a8c7fa'
-    return '#E8ECF4'
-  }
-
-  return (
-    <div className="hud-box tech-border overflow-hidden w-full" style={{ borderLeft: "2px solid rgba(255,85,0,0.5)", boxShadow: "-4px 0 20px rgba(255,85,0,0.08)" }}>
-      <div className="flex items-center gap-2 px-4 py-3 bg-[#0d0f16] border-b border-[#1c2230]">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-        <span className="font-mono text-[12px] text-[#5A6275] ml-3">
-          ~/mindsette/<span className="text-[#00FFE5]">{script.filename}</span>
-        </span>
-        <span className="ml-auto flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF5500] live-dot" />
-          <span className="font-mono text-[10px] text-[#FF5500] tracking-widest">AO VIVO</span>
-        </span>
-      </div>
-      <div ref={termRef} className="p-5 font-mono text-[13px] leading-relaxed bg-[#07080c] overflow-y-auto" style={{ height: 440 }}>
-        <div className="text-[#5A6275] mb-2 text-[11px]">
-          <span className="text-[#FF5500]">mind@mindsette</span>
-          <span className="text-[#3a4154]">:~$ </span>
-          <span className="text-[#00FFE5]">python3 {script.filename}</span>
-        </div>
-        {displayed.map((line, i) => (
-          <div key={i} style={{ color: getColor(line), minHeight: '1.5rem' }}>
-            {line === '' ? '\u00A0' : line}
-          </div>
-        ))}
-        <div style={{ color: getColor(currentLine), minHeight: '1.5rem' }}>
-          {currentLine}<span className="cursor-blink text-[#FF5500]">▮</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
-
-// ── Cookie Consent ────────────────────────────────────────────────
-function CookieConsent() {
-  const [visible, setVisible] = useState(() => {
-    try { return !localStorage.getItem('ms_cookies') } catch { return true }
-  })
-  const [showDetails, setShowDetails] = useState(false)
-  const [prefs, setPrefs] = useState({ analytics: true, marketing: false })
-
-  const accept = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: true }))
-    setVisible(false)
-  }
-  const savePrefs = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify(prefs))
-    setVisible(false)
-  }
-  const reject = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: false }))
-    setVisible(false)
-  }
-
-  if (!visible) return null
-
-  return (
-    <div className="fixed bottom-0 inset-x-0 z-[200] p-4 md:p-6">
-      <div className="max-w-4xl mx-auto hud-box tech-border bg-[#0a0c14] border border-[#2a3346] p-5">
-        {!showDetails ? (
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-            <div className="flex-1">
-              <div className="font-mono text-[11px] text-[#FF5500] tracking-widest mb-2">// POLÍTICA DE COOKIES</div>
-              <p className="text-[#7a8398] text-sm leading-relaxed">
-                Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa{" "}
-                <button onClick={() => setShowDetails(true)} className="text-[#00FFE5] underline hover:text-[#FF5500] transition-colors">
-                  política de cookies
-                </button>.
-              </p>
-            </div>
-            <div className="flex gap-3 flex-shrink-0 flex-wrap">
-              <button onClick={reject} className="font-mono text-xs px-4 py-2.5 border border-[#2a3346] text-[#5A6275] hover:border-[#FF5500] hover:text-[#FF5500] transition-all">REJEITAR</button>
-              <button onClick={() => setShowDetails(true)} className="font-mono text-xs px-4 py-2.5 border border-[#00FFE5]/40 text-[#00FFE5] hover:border-[#00FFE5] transition-all">PREFERÊNCIAS</button>
-              <button onClick={accept} className="font-mono text-xs px-5 py-2.5 bg-[#FF5500] text-black font-bold hover:brightness-110 transition-all">ACEITAR TUDO</button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="font-mono text-[11px] text-[#FF5500] tracking-widest mb-4">// GERENCIAR PREFERÊNCIAS</div>
-            <div className="space-y-3 mb-5">
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230]">
-                <div>
-                  <div className="font-mono text-sm text-white">Cookies Essenciais</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Necessários para o funcionamento do site</div>
-                </div>
-                <span className="font-mono text-[11px] text-[#00FFE5] tracking-wider">SEMPRE ATIVO</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230]">
-                <div>
-                  <div className="font-mono text-sm text-white">Analytics</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Nos ajudam a entender como você usa o site</div>
-                </div>
-                <button onClick={() => setPrefs(p => ({ ...p, analytics: !p.analytics }))}
-                  className={"w-10 h-5 rounded-full transition-colors relative " + (prefs.analytics ? "bg-[#FF5500]" : "bg-[#2a3346]")}>
-                  <span className={"absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all " + (prefs.analytics ? "left-5" : "left-0.5")} />
-                </button>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-[#060709] border border-[#1c2230]">
-                <div>
-                  <div className="font-mono text-sm text-white">Marketing</div>
-                  <div className="font-mono text-[11px] text-[#5A6275] mt-0.5">Usados para anúncios personalizados</div>
-                </div>
-                <button onClick={() => setPrefs(p => ({ ...p, marketing: !p.marketing }))}
-                  className={"w-10 h-5 rounded-full transition-colors relative " + (prefs.marketing ? "bg-[#FF5500]" : "bg-[#2a3346]")}>
-                  <span className={"absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all " + (prefs.marketing ? "left-5" : "left-0.5")} />
-                </button>
-              </div>
-            </div>
-            <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowDetails(false)} className="font-mono text-xs px-4 py-2.5 border border-[#2a3346] text-[#5A6275] hover:text-white transition-all">VOLTAR</button>
-              <button onClick={savePrefs} className="font-mono text-xs px-5 py-2.5 bg-[#FF5500] text-black font-bold hover:brightness-110 transition-all">SALVAR</button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
 export default function App() {
   useReveal()
   return (
     <div className="scanlines relative">
       <ParticleCanvas />
+      <MusicPlayer />
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b-2 border-[#FF5500]/40">
+      <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#050507]/80 border-b border-[#161a26]">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-extrabold text-3xl tracking-tight">
-            Mind<span className="text-[#ffffff]">Sette</span><span className="text-[#FF5500]">.AI</span>
+          <div className="font-extrabold text-xl tracking-tight">
+            MindSette<span className="text-[#FF5500]">.AI</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#c8d0e0] tracking-wide">
-            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
+          <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#7a8398] tracking-wide">
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
-            <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
+            <a href="#agente" className="hover:text-[#FF5500] transition-colors">// agente_ao_vivo</a>
+            <a href="#mind" className="hover:text-[#FF5500] transition-colors">// mind</a>
           </div>
-          <a href="#mind" className="font-mono text-[13px] px-6 py-3 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-widest">
+          <a href="#mind" className="font-mono text-[13px] px-4 py-2 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-wide">
             INICIAR →
           </a>
         </div>
       </nav>
 
       {/* HERO com a logo */}
-      <header className="relative z-10 min-h-screen flex items-center px-6 pt-16 pb-8">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+      <header className="relative z-10 min-h-screen flex items-center px-6 pt-20 pb-12">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
           <div>
             <div className="font-mono text-[12px] text-[#00FFE5] tracking-[0.25em] mb-6 reveal visible">
               // MIND_SYSTEM_V5.8 — NEURAL INTERFACE <span className="text-[#FF5500]">ACTIVE</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.02] mb-7">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.06] mb-7">
               Enquanto você dorme,<br />
               <span className="text-[#FF5500] glow-orange">seu agente trabalha.</span>
             </h1>
-            <p className="text-lg text-[#7a8398] max-w-md mb-10 leading-relaxed">
+            <p className="text-lg text-[#7a8398] max-w-xl mb-10 leading-relaxed">
               Agentes de IA, bots e automações que respondem, agendam e qualificam — 24 horas por dia, do jeito que o seu negócio precisa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
                 FALAR COM A MIND
               </a>
-              <a href="#servicos" className="px-8 py-4 rounded-sm border-2 border-[#00FFE5] text-[#00FFE5] font-mono font-bold text-base hover:border-[#FF5500] hover:text-[#FF5500] transition text-center tracking-wide">
-                COMO FUNCIONA →
+              <a href="#agente" className="px-8 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono font-bold text-base hover:border-[#00FFE5] transition text-center tracking-wide">
+                VER AGENTE AO VIVO
               </a>
             </div>
-            <div className="hidden">
+            <div className="grid grid-cols-2 gap-4 mt-12 max-w-md">
               <HudPanel title="PROCESSING.." accent lines={[['uptime', '97.3%'], ['data stream', 'secure'], ['link', 'encrypted']]} />
               <HudPanel title="CORE STATUS" lines={[['learning core', 'adaptive'], ['personality', 'stable'], ['sys id', 'MND-7X21']]} />
             </div>
           </div>
-          <div className="relative">
-            <HeroTerminal />
+          <div className="relative hidden lg:block">
+            <div className="float-slow relative">
+              <img src={lunaHero} alt="MindSette.AI" className="w-full max-w-[440px] mx-auto rounded-md"
+                   style={{ maskImage: 'linear-gradient(180deg, black 78%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 78%, transparent 100%)' }} />
+              <div className="absolute -inset-6 -z-10 opacity-40"
+                   style={{ background: 'radial-gradient(ellipse at center, rgba(138,180,248,0.14), transparent 65%)' }} />
+            </div>
           </div>
         </div>
       </header>
-
-      {/* CHAT */}
-      <section id="mind" className="relative z-10 py-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="reveal mb-12 text-center">
-            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
-            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
-          </div>
-          <div className="reveal shadow-[0_0_40px_rgba(255,85,0,0.06)] rounded-sm"><MindChat /></div>
-        </div>
-      </section>
 
       {/* SERVIÇOS */}
       <section id="servicos" className="relative z-10 py-28 px-6">
@@ -570,38 +332,32 @@ export default function App() {
         </div>
       </section>
 
-
-
-      {/* CONTATO */}
-      <section id="contato" className="relative z-10 py-28 px-6 bg-[#06070b]">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="reveal mb-10">
-            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// RESPONSÁVEL PELO PROJETO</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Marcelo <span className="text-[#00FFE5] glow-ice">Sette</span></h2>
-            <p className="text-[#7a8398] text-lg mb-2">Fundador da MindSette.AI — Advogado & Dev em formação</p>
-            <p className="text-[#7a8398] text-base">Arquiteto de aplicações em IA, automações e bots para negócios.</p>
+      {/* TERMINAL */}
+      <section id="agente" className="relative z-10 py-28 px-6 bg-[#06070b]">
+        <div className="max-w-4xl mx-auto">
+          <div className="reveal mb-12 text-center">
+            <div className="font-mono text-[12px] text-[#00FFE5] mb-3 tracking-[0.25em]">// SÃO 3H DA MANHÃ</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Você dorme. <span className="text-[#FF5500] glow-orange">Ele não.</span></h2>
+            <p className="text-[#7a8398] text-lg">Isto é um agente MindSette trabalhando de madrugada — de verdade.</p>
           </div>
-          <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
-            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
-            <div className="flex flex-col gap-4">
-              <a href="mailto:msettejunior@icloud.com"
-                className="flex items-center gap-3 px-6 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold font-mono text-sm hover:brightness-110 transition justify-center tracking-wide">
-                ✉ msettejunior@icloud.com
-              </a>
-              <a href="https://instagram.com/mindsette.ai" target="_blank" rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
-                ◉ @mindsette.ai
-              </a>
-              <a href="https://t.me/MindSette_bot" target="_blank" rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
-                ✈ Telegram — @MindSette_bot
-              </a>
-              <a href="https://github.com/msette-jr" target="_blank" rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
-                ⌥ github.com/msette-jr
-              </a>
-            </div>
+          <div className="reveal"><Terminal /></div>
+          <div className="reveal grid grid-cols-3 gap-6 mt-12 text-center">
+            <div><div className="text-4xl md:text-5xl font-extrabold text-[#FF5500]"><Counter target={24} suffix="h" /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">POR DIA ATIVO</div></div>
+            <div><div className="text-4xl md:text-5xl font-extrabold text-[#00FFE5]"><Counter target={47} /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">MSGS NUMA MADRUGADA</div></div>
+            <div><div className="text-4xl md:text-5xl font-extrabold text-[#E8ECF4]"><Counter target={1} suffix="h" /></div><div className="font-mono text-[12px] text-[#5A6275] mt-2 tracking-wider">PARA O SEU FICAR NO AR</div></div>
           </div>
+        </div>
+      </section>
+
+      {/* CHAT */}
+      <section id="mind" className="relative z-10 py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="reveal mb-12 text-center">
+            <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
+            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
+          </div>
+          <div className="reveal"><MindChat /></div>
         </div>
       </section>
 
@@ -624,10 +380,9 @@ export default function App() {
           </div>
         </div>
         <div className="text-center font-mono text-[11px] text-[#2e3342] mt-10 tracking-widest">
-          © 2026 MINDSETTE.AI — SYS ID: MND-7X21
+          © 2026 MINDSETTE.AI — JOÃO PESSOA, PB // SYS ID: MND-7X21
         </div>
       </footer>
-      <CookieConsent />
     </div>
   )
 }
