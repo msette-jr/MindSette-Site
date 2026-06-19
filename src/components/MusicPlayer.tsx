@@ -1,63 +1,30 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 export default function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0
-      audioRef.current.loop = true
-    }
-  }, [])
+  const toggle = () => {
+    const audio = audioRef.current
+    if (!audio) return
 
-  const fadeIn = (audio: HTMLAudioElement) => {
-    audio.volume = 0
-    const step = setInterval(() => {
-      if (audio.volume < 0.38) {
-        audio.volume = Math.min(0.4, audio.volume + 0.02)
-      } else {
-        clearInterval(step)
-      }
-    }, 80)
-  }
-
-  const fadeOut = (audio: HTMLAudioElement, cb: () => void) => {
-    const step = setInterval(() => {
-      if (audio.volume > 0.02) {
-        audio.volume = Math.max(0, audio.volume - 0.02)
-      } else {
-        clearInterval(step)
-        audio.pause()
-        cb()
-      }
-    }, 80)
-  }
-
-  const toggle = async () => {
-  const audio = audioRef.current
-  if (!audio) return
-
-  if (playing) {
-    fadeOut(audio, () => setPlaying(false))
-  } else {
-    try {
-      audio.load()
-      const playPromise = audio.play()
-      if (playPromise !== undefined) {
-        await playPromise
-        fadeIn(audio)
+    if (playing) {
+      audio.pause()
+      setPlaying(false)
+    } else {
+      audio.volume = 0.4
+      audio.loop = true
+      audio.play().then(() => {
         setPlaying(true)
-      }
-    } catch (err) {
-      console.log('Audio bloqueado:', err)
+      }).catch((e) => {
+        console.log('Audio error:', e)
+      })
     }
   }
-}
 
   return (
     <>
-      <audio ref={audioRef} src="/techmologyv3.mp3" preload="none" />
+      <audio ref={audioRef} src="/techmologyv3.mp3" preload="auto" />
 
       <button
         onClick={toggle}
@@ -77,8 +44,10 @@ export default function MusicPlayer() {
           background: playing ? 'rgba(0,255,229,0.08)' : 'rgba(255,215,0,0.12)',
           boxShadow: playing ? '0 0 14px #00FFE5aa' : '0 0 14px #FFD700aa',
           backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           cursor: 'pointer',
           transition: 'all 0.3s ease',
+          WebkitTapHighlightColor: 'transparent',
         }}
       >
         {playing ? <IconPlaying /> : <IconPaused />}
