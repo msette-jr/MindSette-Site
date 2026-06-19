@@ -56,7 +56,7 @@ export default function MusicPlayer() {
         onClick={toggle}
         title={playing ? "Pausar música" : "Tocar música"}
         className={`
-          fixed top-20 right-6 z-50
+          fixed top-20 right-6 z-50git add src/components/MusicPlayer.tsx
           w-12 h-12 rounded-full
           flex items-center justify-center
           border transition-all duration-300
@@ -68,9 +68,16 @@ export default function MusicPlayer() {
         `}
       >
         {playing ? (
-          <Equalizer />
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M2 8h3l4-5v18l-4-5H2V8z" fill="#00FFE5" />
+            <path d="M14 5.5a8 8 0 0 1 0 11" stroke="#00FFE5" strokeWidth="1.8" strokeLinecap="round" fill="none"/>
+            <path d="M17 3a11 11 0 0 1 0 16" stroke="#00FFE5" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5"/>
+        </svg>
         ) : (
-          <span className="text-[#FF5500] text-lg transition-all duration-300">🔇</span>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M2 8h3l4-5v18l-4-5H2V8z" fill="#FF5500" />
+            <path d="M14 5.5a8 8 0 0 1 0 11" stroke="#FF5500" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.3"/>
+        </svg>
         )}
       </button>
     </>
