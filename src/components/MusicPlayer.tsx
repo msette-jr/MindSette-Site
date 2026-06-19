@@ -31,11 +31,11 @@ export default function MusicPlayer() {
         title={playing ? "Pausar música" : "Tocar música"}
         style={{
           position: 'fixed',
-          top: '72px',
+          top: '76px',
           right: '20px',
           zIndex: 50,
-          width: '44px',
-          height: '44px',
+          width: '36px',
+          height: '36px',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
@@ -68,7 +68,7 @@ function IconPaused() {
 
 function IconPlaying() {
   return (
-    <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
       <path d="M1 5.5H3.5L7 1v14L3.5 10.5H1V5.5z" fill="#00FFE5" />
       <path d="M10 4a5.5 5.5 0 0 1 0 8" stroke="#00FFE5" strokeWidth="1.4" strokeLinecap="round"/>
       <path d="M12.5 2a8 8 0 0 1 0 12" stroke="#00FFE5" strokeWidth="1.2" strokeLinecap="round" opacity="0.45"/>
