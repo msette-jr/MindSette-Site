@@ -31,7 +31,7 @@ export default function MusicPlayer() {
         title={playing ? "Pausar música" : "Tocar música"}
         style={{
           position: 'fixed',
-          top: '76px',
+          top: '88px',
           right: '20px',
           zIndex: 50,
           width: '36px',
