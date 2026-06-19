@@ -1,14 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import MusicPlayer from './components/MusicPlayer'
-// ════════════════════════════════════════════════════════════════
-// CONFIG — NO DEPLOY ORACLE: troque API_URL pelo endpoint do proxy
-// Flask, ex.: "https://seudominio.com.br/api/chat"
-// ════════════════════════════════════════════════════════════════
 const API_URL = "https://api.mindsette.ia.br/api/mind"
 const TELEGRAM_URL = "https://t.me/MindSette_bot"
 const INSTAGRAM_URL = "https://instagram.com/mindsette.ai"
 
-// ── Partículas: azul-gelo discreto + raros laranja ───────────────
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
@@ -78,7 +73,6 @@ function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
   return <span ref={ref}>{val}{suffix}</span>
 }
 
-// ── HUD Panel (estilo da arte: MIND_SYSTEM_V5.8) ─────────────────
 function HudPanel({ title, lines, accent = false }: { title: string; lines: [string, string][]; accent?: boolean }) {
   return (
     <div className="hud-box tech-border p-4 font-mono text-[11px] leading-relaxed select-none">
@@ -93,7 +87,6 @@ function HudPanel({ title, lines, accent = false }: { title: string; lines: [str
   )
 }
 
-// ── Terminal ─────────────────────────────────────────────────────
 const TERMINAL_LOGS = [
   { t: '[03:00:12]', m: '▶ agente iniciado', c: '#00FFE5' },
   { t: '[03:00:13]', m: '✓ 12 mensagens na fila', c: '#E8ECF4' },
@@ -151,7 +144,6 @@ function Terminal() {
   )
 }
 
-// ── Chat Mind ────────────────────────────────────────────────────
 type Msg = { role: 'user' | 'assistant'; content: string }
 function MindChat() {
   const [msgs, setMsgs] = useState<Msg[]>([
@@ -169,7 +161,7 @@ function MindChat() {
       const res = await fetch(API_URL + '/stats')
       const data = await res.json()
       setConversas(data.conversas ?? null)
-    } catch { /* silencioso */ }
+    } catch { }
   }, [])
 
   useEffect(() => { fetchStats() }, [])
@@ -185,9 +177,7 @@ function MindChat() {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: history.map((m) => ({ role: m.role, content: m.content })),
-        }),
+        body: JSON.stringify({ messages: history.map((m) => ({ role: m.role, content: m.content })) }),
       })
       const data = await res.json()
       const reply = data.reply || 'Não consegui responder agora. Tenta de novo ou me chama no Telegram.'
@@ -209,7 +199,6 @@ function MindChat() {
           <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] live-dot" /> NEURAL INTERFACE ACTIVE
           </div>
-
         </div>
         <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
            className="ml-auto font-mono text-xs px-3.5 py-2 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm">
@@ -251,7 +240,6 @@ function MindChat() {
   )
 }
 
-// ── Service Card monocromático tech ──────────────────────────────
 function ServiceCard({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
     <div className="reveal group hud-box tech-border p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF5500]/40 cursor-default">
@@ -263,8 +251,6 @@ function ServiceCard({ num, title, desc }: { num: string; title: string; desc: s
   )
 }
 
-
-// ── Hero Terminal — digitação de scripts Python ──────────────────
 const PYTHON_SCRIPTS = [
   {
     filename: 'agente_qualificacao.py',
@@ -396,9 +382,6 @@ function HeroTerminal() {
   )
 }
 
-
-
-// ── Cookie Consent ────────────────────────────────────────────────
 function CookieConsent() {
   const [visible, setVisible] = useState(() => {
     try { return !localStorage.getItem('ms_cookies') } catch { return true }
@@ -406,18 +389,9 @@ function CookieConsent() {
   const [showDetails, setShowDetails] = useState(false)
   const [prefs, setPrefs] = useState({ analytics: true, marketing: false })
 
-  const accept = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: true }))
-    setVisible(false)
-  }
-  const savePrefs = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify(prefs))
-    setVisible(false)
-  }
-  const reject = () => {
-    localStorage.setItem('ms_cookies', JSON.stringify({ all: false }))
-    setVisible(false)
-  }
+  const accept = () => { localStorage.setItem('ms_cookies', JSON.stringify({ all: true })); setVisible(false) }
+  const savePrefs = () => { localStorage.setItem('ms_cookies', JSON.stringify(prefs)); setVisible(false) }
+  const reject = () => { localStorage.setItem('ms_cookies', JSON.stringify({ all: false })); setVisible(false) }
 
   if (!visible) return null
 
@@ -430,9 +404,7 @@ function CookieConsent() {
               <div className="font-mono text-[11px] text-[#FF5500] tracking-widest mb-2">// POLÍTICA DE COOKIES</div>
               <p className="text-[#7a8398] text-sm leading-relaxed">
                 Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa{" "}
-                <button onClick={() => setShowDetails(true)} className="text-[#00FFE5] underline hover:text-[#FF5500] transition-colors">
-                  política de cookies
-                </button>.
+                <button onClick={() => setShowDetails(true)} className="text-[#00FFE5] underline hover:text-[#FF5500] transition-colors">política de cookies</button>.
               </p>
             </div>
             <div className="flex gap-3 flex-shrink-0 flex-wrap">
@@ -493,8 +465,8 @@ export default function App() {
 
       {/* NAVBAR */}
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b-2 border-[#FF5500]/40">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-extrabold text-3xl tracking-tight">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between">
+          <div className="font-extrabold text-xl md:text-3xl tracking-tight">
             Mind<span className="text-[#ffffff]">Sette</span><span className="text-[#FF5500]">.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-mono text-[13px] text-[#c8d0e0] tracking-wide">
@@ -502,13 +474,13 @@ export default function App() {
             <a href="#servicos" className="hover:text-[#FF5500] transition-colors">// serviços</a>
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
           </div>
-          <a href="#mind" className="font-mono text-[13px] px-6 py-3 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-widest">
+          <a href="#mind" className="font-mono text-[11px] md:text-[13px] px-3 md:px-6 py-2 md:py-3 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-widest">
             INICIAR →
           </a>
         </div>
       </nav>
 
-      {/* HERO com a logo */}
+      {/* HERO */}
       <header className="relative z-10 min-h-screen flex items-center px-6 pt-16 pb-8">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
           <div>
@@ -570,8 +542,6 @@ export default function App() {
           </div>
         </div>
       </section>
-
-
 
       {/* CONTATO */}
       <section id="contato" className="relative z-10 py-28 px-6 bg-[#06070b]">
