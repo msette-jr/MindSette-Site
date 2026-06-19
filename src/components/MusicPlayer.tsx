@@ -34,18 +34,26 @@ export default function MusicPlayer() {
     }, 80)
   }
 
-  const toggle = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (playing) {
-      fadeOut(audio, () => setPlaying(false))
-    } else {
-      audio.play().then(() => {
+  const toggle = async () => {
+  const audio = audioRef.current
+  if (!audio) return
+
+  if (playing) {
+    fadeOut(audio, () => setPlaying(false))
+  } else {
+    try {
+      audio.load()
+      const playPromise = audio.play()
+      if (playPromise !== undefined) {
+        await playPromise
         fadeIn(audio)
         setPlaying(true)
-      }).catch(() => {})
+      }
+    } catch (err) {
+      console.log('Audio bloqueado:', err)
     }
   }
+}
 
   return (
     <>
