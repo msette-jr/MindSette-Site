@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-
+import MusicPlayer from './components/MusicPlayer'
 // ════════════════════════════════════════════════════════════════
 // CONFIG — NO DEPLOY ORACLE: troque API_URL pelo endpoint do proxy
 // Flask, ex.: "https://seudominio.com.br/api/chat"
@@ -489,6 +489,7 @@ export default function App() {
   return (
     <div className="scanlines relative">
       <ParticleCanvas />
+      <MusicPlayer />
 
       {/* NAVBAR */}
       <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#08090f]/95 border-b-2 border-[#FF5500]/40">
