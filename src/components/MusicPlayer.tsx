@@ -56,7 +56,7 @@ export default function MusicPlayer() {
         onClick={toggle}
         title={playing ? "Pausar música" : "Tocar música"}
         className={`
-          fixed bottom-6 right-6 z-50
+          fixed top-20 right-6 z-50
           w-12 h-12 rounded-full
           flex items-center justify-center
           border transition-all duration-300
