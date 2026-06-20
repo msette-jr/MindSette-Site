@@ -441,11 +441,11 @@ export default function App() {
               A Mind é uma agente conectada à API do Claude, funcionando no site e no Telegram para ensinar bots, agentes e automações na prática.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
-                TESTAR A MIND AGORA
+              <a href="#mind" className="pulse-soft px-6 py-3 rounded-sm bg-[#FF5500] text-black font-extrabold text-sm hover:brightness-110 transition text-center font-mono tracking-wide">
+                TESTAR A MIND
               </a>
-              <a href="#servicos" className="px-8 py-4 rounded-sm border-2 border-[#00FFE5] text-[#00FFE5] font-mono font-bold text-base hover:border-[#FF5500] hover:text-[#FF5500] transition text-center tracking-wide">
-                VER COMO ELA FUNCIONA →
+              <a href="#servicos" className="px-6 py-3 rounded-sm border border-[#00FFE5] text-[#00FFE5] font-mono font-bold text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition text-center tracking-wide">
+                COMO FUNCIONA →
               </a>
             </div>
             <div className="hidden">
@@ -464,8 +464,8 @@ export default function App() {
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-12 text-center">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Teste a <span className="text-[#00FFE5] glow-ice">Mind agora.</span></h2>
-            <p className="text-[#7a8398] text-lg">Pergunte sobre bots, prompts, agentes, Telegram, Claude, Python ou automações. A Mind responde no site e também funciona no Telegram.</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
+            <p className="text-[#7a8398] text-lg max-w-md mx-auto">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
           </div>
           <div className="reveal shadow-[0_0_40px_rgba(255,85,0,0.06)] rounded-sm"><MindChat /></div>
         </div>
@@ -500,24 +500,23 @@ export default function App() {
             <p className="text-[#7a8398] text-base">Desenvolvo projetos práticos com IA, bots, automações, segurança digital e aplicações para negócios.</p>
           </div>
           <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
-            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-2">// QUER TESTAR A MIND NO SEU CASO?</div>
-            <p className="text-[#7a8398] text-sm mb-6 leading-relaxed">Descreva uma tarefa repetitiva, uma ideia de bot ou uma dúvida sobre automação.</p>
+            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
             <div className="flex flex-col gap-4">
-              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
+              <a href="mailto:msettejunior@icloud.com"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold font-mono text-sm hover:brightness-110 transition justify-center tracking-wide">
-                ✈ FALAR COM A MIND NO TELEGRAM
+                ✉ msettejunior@icloud.com
               </a>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
+              <a href="https://instagram.com/mindsette.ai" target="_blank" rel="noreferrer"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
                 ◉ @mindsette.ai
+              </a>
+              <a href="https://t.me/MindSette_bot" target="_blank" rel="noreferrer"
+                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
+                ✈ Telegram — @MindSette_bot
               </a>
               <a href="https://github.com/msette-jr" target="_blank" rel="noreferrer"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
                 ⌥ github.com/msette-jr
-              </a>
-              <a href="mailto:msettejunior@icloud.com"
-                className="flex items-center gap-3 px-4 py-3 text-[#5A6275] font-mono text-xs hover:text-[#00FFE5] transition justify-center tracking-wide">
-                ✉ msettejunior@icloud.com
               </a>
             </div>
           </div>
