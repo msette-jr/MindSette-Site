@@ -461,7 +461,7 @@ export default function App() {
 
       {/* CHAT */}
       <section id="mind" className="relative z-10 py-20 px-6">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="reveal mb-12 text-center">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
