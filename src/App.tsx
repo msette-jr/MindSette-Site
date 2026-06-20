@@ -497,7 +497,7 @@ export default function App() {
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// RESPONSÁVEL PELO PROJETO</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Marcelo <span className="text-[#00FFE5] glow-ice">Sette</span></h2>
             <p className="text-[#7a8398] text-lg mb-2">Criador da MindSette.AI e da agente Mind.</p>
-            <p className="text-[#7a8398] text-base">Desenvolvo projetos práticos com IA, bots, automações, segurança digital e aplicações para negócios.</p>
+            <p className="text-[#7a8398] text-base max-w-md mx-auto">Desenvolvo projetos práticos com IA, bots, automações, segurança digital e aplicações para negócios.</p>
           </div>
           <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
             <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
