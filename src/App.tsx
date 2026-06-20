@@ -87,67 +87,11 @@ function HudPanel({ title, lines, accent = false }: { title: string; lines: [str
   )
 }
 
-const TERMINAL_LOGS = [
-  { t: '[03:00:12]', m: '▶ agente iniciado', c: '#00FFE5' },
-  { t: '[03:00:13]', m: '✓ 12 mensagens na fila', c: '#E8ECF4' },
-  { t: '[03:00:14]', m: '✓ respondendo #1...', c: '#9aa8c4' },
-  { t: '[03:00:18]', m: '✓ lead qualificado', c: '#FF5500' },
-  { t: '[03:00:21]', m: '✓ agendamento confirmado', c: '#FF5500' },
-  { t: '[03:00:41]', m: '✓ respondendo #15...', c: '#9aa8c4' },
-  { t: '[03:01:02]', m: '✓ 23 respostas enviadas', c: '#00FFE5' },
-  { t: '[03:01:05]', m: '◉ aguardando novas mensagens...', c: '#5A6275' },
-]
-function Terminal() {
-  const [lines, setLines] = useState(0)
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return
-      obs.disconnect()
-      let i = 0
-      const run = () => {
-        const interval = setInterval(() => {
-          i++
-          setLines(i)
-          if (i >= TERMINAL_LOGS.length) {
-            clearInterval(interval)
-            setTimeout(() => { i = 0; setLines(0); run() }, 4200)
-          }
-        }, 680)
-      }
-      run()
-    }, { threshold: 0.4 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
-  return (
-    <div ref={ref} className="hud-box tech-border overflow-hidden">
-      <div className="flex items-center gap-2 px-5 py-3 bg-[#0d0f16] border-b border-[#1c2230]">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#3a3f4e]" />
-        <span className="font-mono text-[13px] text-[#5A6275] ml-3">mindsette.agent — bash</span>
-        <span className="ml-auto flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF5500] live-dot" />
-          <span className="font-mono text-[11px] text-[#FF5500] tracking-widest">AO VIVO</span>
-        </span>
-      </div>
-      <div className="p-6 min-h-[320px] font-mono text-[14px] leading-loose bg-[#07080c]">
-        {TERMINAL_LOGS.slice(0, lines).map((l, i) => (
-          <div key={i} style={{ color: l.c }}>
-            <span className="text-[#3a4154]">{l.t}</span> {l.m}
-          </div>
-        ))}
-        <span className="cursor-blink text-[#FF5500]">▮</span>
-      </div>
-    </div>
-  )
-}
-
+// ── Chat Mind ────────────────────────────────────────────────────
 type Msg = { role: 'user' | 'assistant'; content: string }
 function MindChat() {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { role: 'assistant', content: 'Oi! Eu sou a Mind, agente de IA da MindSette. Quer aprender automação ou montar o seu próprio agente? Me pergunta qualquer coisa.' },
+    { role: 'assistant', content: 'Oi, eu sou a Mind.\nUma agente de IA ligada ao Claude.\nPosso te ensinar a criar bots, prompts, agentes e automações.\nMe pergunte o que você quer automatizar.' },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -208,7 +152,7 @@ function MindChat() {
       <div ref={boxRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-[#07090e] to-[#060708]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md ${
+            <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md whitespace-pre-line ${
               m.role === 'user'
                 ? 'bg-[#FF5500] text-black font-medium'
                 : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#dde3f0] shadow-[0_0_12px_rgba(255,85,0,0.05)]'
@@ -228,7 +172,7 @@ function MindChat() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
-          placeholder="pergunte sobre automação, bots, agentes de IA..."
+          placeholder="pergunte sobre bots, prompts, agentes, Claude, Python..."
           className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] focus:shadow-[0_0_16px_rgba(255,85,0,0.08)] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
         />
         <button onClick={send} disabled={loading}
@@ -240,6 +184,7 @@ function MindChat() {
   )
 }
 
+// ── Service Card ──────────────────────────────────────────────────
 function ServiceCard({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
     <div className="reveal group hud-box tech-border p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF5500]/40 cursor-default">
@@ -251,9 +196,10 @@ function ServiceCard({ num, title, desc }: { num: string; title: string; desc: s
   )
 }
 
+// ── Hero Terminal ─────────────────────────────────────────────────
 const PYTHON_SCRIPTS = [
   {
-    filename: 'agente_qualificacao.py',
+    filename: 'mind_agent_claude.py',
     lines: [
       'import anthropic, json',
       'from telegram import Bot',
@@ -261,8 +207,8 @@ const PYTHON_SCRIPTS = [
       'client = anthropic.Anthropic()',
       'bot = Bot(token=TELEGRAM_TOKEN)',
       '',
-      '# [03:00:14] processando lead #12...',
-      'def qualificar_lead(mensagem: str) -> dict:',
+      '# [13:30:21] pergunta recebida no site',
+      'def processar_pergunta(mensagem: str) -> dict:',
       '    response = client.messages.create(',
       '        model="claude-haiku-4-5",',
       '        system=SYSTEM_PROMPT,',
@@ -270,9 +216,8 @@ const PYTHON_SCRIPTS = [
       '    )',
       '    return json.loads(response.content[0].text)',
       '',
-      '# [03:00:21] ✓ lead qualificado',
-      '# [03:00:22] ✓ agendamento confirmado',
-      '# [03:01:02] ✓ 23 respostas enviadas',
+      '# [13:30:24] Claude processando contexto',
+      '# [13:30:28] resposta enviada pela Mind',
     ]
   },
   {
@@ -382,6 +327,7 @@ function HeroTerminal() {
   )
 }
 
+// ── Cookie Consent ────────────────────────────────────────────────
 function CookieConsent() {
   const [visible, setVisible] = useState(() => {
     try { return !localStorage.getItem('ms_cookies') } catch { return true }
@@ -475,7 +421,7 @@ export default function App() {
             <a href="#contato" className="hover:text-[#FF5500] transition-colors">// contato</a>
           </div>
           <a href="#mind" className="font-mono text-[11px] md:text-[13px] px-3 md:px-6 py-2 md:py-3 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 transition tracking-widest">
-            INICIAR →
+            TESTAR MIND →
           </a>
         </div>
       </nav>
@@ -485,21 +431,21 @@ export default function App() {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
           <div>
             <div className="font-mono text-[12px] text-[#00FFE5] tracking-[0.25em] mb-6 reveal visible">
-              // MIND_SYSTEM_V5.8 — NEURAL INTERFACE <span className="text-[#FF5500]">ACTIVE</span>
+              // MIND_AGENT — CLAUDE API <span className="text-[#FF5500]">CONNECTED</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.02] mb-7">
-              Enquanto você dorme,<br />
-              <span className="text-[#FF5500] glow-orange">seu agente trabalha.</span>
+              Converse com uma IA<br />
+              <span className="text-[#FF5500] glow-orange">que ensina automação.</span>
             </h1>
             <p className="text-lg text-[#7a8398] max-w-md mb-10 leading-relaxed">
-              Agentes de IA, bots e automações que respondem, agendam e qualificam — 24 horas por dia, do jeito que o seu negócio precisa.
+              A Mind é uma agente conectada à API do Claude, funcionando no site e no Telegram para ensinar bots, agentes e automações na prática.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#mind" className="pulse-soft px-8 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold text-base hover:brightness-110 transition text-center font-mono tracking-wide">
-                FALAR COM A MIND
+                TESTAR A MIND AGORA
               </a>
               <a href="#servicos" className="px-8 py-4 rounded-sm border-2 border-[#00FFE5] text-[#00FFE5] font-mono font-bold text-base hover:border-[#FF5500] hover:text-[#FF5500] transition text-center tracking-wide">
-                COMO FUNCIONA →
+                VER COMO ELA FUNCIONA →
               </a>
             </div>
             <div className="hidden">
@@ -518,8 +464,8 @@ export default function App() {
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-12 text-center">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
-            <p className="text-[#7a8398] text-lg">Nossa agente de IA ensina automação e tira suas dúvidas — aqui ou no Telegram.</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Teste a <span className="text-[#00FFE5] glow-ice">Mind agora.</span></h2>
+            <p className="text-[#7a8398] text-lg">Pergunte sobre bots, prompts, agentes, Telegram, Claude, Python ou automações. A Mind responde no site e também funciona no Telegram.</p>
           </div>
           <div className="reveal shadow-[0_0_40px_rgba(255,85,0,0.06)] rounded-sm"><MindChat /></div>
         </div>
@@ -531,14 +477,15 @@ export default function App() {
           <div className="reveal mb-14">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// O QUE A GENTE CONSTRÓI</div>
             <h2 className="text-4xl md:text-5xl font-extrabold">Inteligência que <span className="text-[#00FFE5] glow-ice">executa.</span></h2>
+            <p className="text-[#7a8398] text-lg mt-4 max-w-2xl">Da ideia ao agente funcionando: site, Telegram, atendimento, alertas e fluxos automatizados.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             <ServiceCard num="[ 01 ]" title="Agentes de IA"
-              desc="Atendentes virtuais com personalidade, memória e contexto. Respondem clientes, qualificam leads e agendam — sem você levantar um dedo." />
+              desc="Assistentes conectados ao Claude para responder, orientar, organizar informações e executar tarefas com contexto." />
             <ServiceCard num="[ 02 ]" title="Bots sob medida"
-              desc="Telegram, WhatsApp ou site. Bots que conversam de verdade, integrados com a API Claude e o seu negócio." />
+              desc="Bots para site, Telegram ou WhatsApp, integrados à IA para atender, ensinar, qualificar e automatizar conversas." />
             <ServiceCard num="[ 03 ]" title="Automações"
-              desc="Fluxos que conectam suas ferramentas e eliminam trabalho repetitivo. Você define a regra, o sistema faz o resto." />
+              desc="Fluxos que conectam ferramentas, reduzem tarefas repetitivas e fazem o sistema trabalhar por você." />
           </div>
         </div>
       </section>
@@ -549,27 +496,28 @@ export default function App() {
           <div className="reveal mb-10">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// RESPONSÁVEL PELO PROJETO</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Marcelo <span className="text-[#00FFE5] glow-ice">Sette</span></h2>
-            <p className="text-[#7a8398] text-lg mb-2">Fundador da MindSette.AI — Advogado & Dev em formação</p>
-            <p className="text-[#7a8398] text-base">Arquiteto de aplicações em IA, automações e bots para negócios.</p>
+            <p className="text-[#7a8398] text-lg mb-2">Criador da MindSette.AI e da agente Mind.</p>
+            <p className="text-[#7a8398] text-base">Desenvolvo projetos práticos com IA, bots, automações, segurança digital e aplicações para negócios.</p>
           </div>
           <div className="reveal hud-box tech-border p-8 max-w-md mx-auto">
-            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-6">// ENTRE EM CONTATO</div>
+            <div className="font-mono text-[11px] text-[#00FFE5] tracking-widest mb-2">// QUER TESTAR A MIND NO SEU CASO?</div>
+            <p className="text-[#7a8398] text-sm mb-6 leading-relaxed">Descreva uma tarefa repetitiva, uma ideia de bot ou uma dúvida sobre automação.</p>
             <div className="flex flex-col gap-4">
-              <a href="mailto:msettejunior@icloud.com"
+              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm bg-[#FF5500] text-black font-extrabold font-mono text-sm hover:brightness-110 transition justify-center tracking-wide">
-                ✉ msettejunior@icloud.com
+                ✈ FALAR COM A MIND NO TELEGRAM
               </a>
-              <a href="https://instagram.com/mindsette.ai" target="_blank" rel="noreferrer"
+              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
                 ◉ @mindsette.ai
-              </a>
-              <a href="https://t.me/MindSette_bot" target="_blank" rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
-                ✈ Telegram — @MindSette_bot
               </a>
               <a href="https://github.com/msette-jr" target="_blank" rel="noreferrer"
                 className="flex items-center gap-3 px-6 py-4 rounded-sm border border-[#2a3142] text-[#00FFE5] font-mono text-sm hover:border-[#FF5500] hover:text-[#FF5500] transition justify-center tracking-wide">
                 ⌥ github.com/msette-jr
+              </a>
+              <a href="mailto:msettejunior@icloud.com"
+                className="flex items-center gap-3 px-4 py-3 text-[#5A6275] font-mono text-xs hover:text-[#00FFE5] transition justify-center tracking-wide">
+                ✉ msettejunior@icloud.com
               </a>
             </div>
           </div>
@@ -581,7 +529,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="font-extrabold text-2xl">MindSette<span className="text-[#FF5500]">.AI</span></div>
-            <div className="font-mono text-[12px] text-[#5A6275] mt-1 tracking-wider">IA APLICADA • AGENTES • BOTS • AUTOMAÇÕES</div>
+            <div className="font-mono text-[12px] text-[#5A6275] mt-1 tracking-wider">IA APLICADA • AGENTE MIND • BOTS • AUTOMAÇÕES</div>
           </div>
           <div className="flex gap-4">
             <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
