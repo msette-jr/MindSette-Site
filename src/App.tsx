@@ -91,7 +91,7 @@ function HudPanel({ title, lines, accent = false }: { title: string; lines: [str
 type Msg = { role: 'user' | 'assistant'; content: string }
 function MindChat() {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { role: 'assistant', content: 'Oi, eu sou a Mind.\nUma agente de IA ligada ao Claude.\nPosso te ensinar a criar bots, prompts, agentes e automações.\nMe pergunte o que você quer automatizar.' },
+    { role: 'assistant', content: 'Oi! Sou a Mind, IA da MindSette ligada ao Claude. Me pergunte sobre bots, agentes ou automações.' },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -100,7 +100,7 @@ function MindChat() {
   useEffect(() => { boxRef.current?.scrollTo({ top: boxRef.current.scrollHeight, behavior: 'smooth' }) }, [msgs, loading])
 
   const reset = () => {
-    setMsgs([{ role: 'assistant', content: 'Oi, eu sou a Mind.\nUma agente de IA ligada ao Claude.\nPosso te ensinar a criar bots, prompts, agentes e automações.\nMe pergunte o que você quer automatizar.' }])
+    setMsgs([{ role: 'assistant', content: 'Oi! Sou a Mind, IA da MindSette ligada ao Claude. Me pergunte sobre bots, agentes ou automações.' }])
     setInput('')
   }
 
@@ -128,12 +128,12 @@ function MindChat() {
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 480 }}>
+    <div className="overflow-hidden flex flex-col rounded-xl border border-[#1e2330]" style={{ height: 580, boxShadow: '0 0 40px rgba(255,85,0,0.06)' }}>
       {/* Header */}
-      <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
-        <img src="/logo-mind.png" alt="Mind" className="w-8 h-8 rounded-full object-contain flex-shrink-0 border border-[#FF5500]/40" />
+      <div className="flex items-center gap-3 px-4 py-3 bg-[#0d0f18] border-b border-[#1e2330]">
+        <img src="/logo-mind.png" alt="Mind" className="w-9 h-9 rounded-full object-contain flex-shrink-0 border border-[#FF5500]/30" />
         <div>
-          <div className="font-bold text-[13px] tracking-wide text-[#E8ECF4]">Mind — MindSette.AI</div>
+          <div className="font-semibold text-[13px] text-[#E8ECF4]">Mind — MindSette.AI</div>
           <div className="flex items-center gap-1.5 mt-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00FFE5] live-dot" />
             <span className="font-mono text-[10px] text-[#00FFE5] tracking-wider">Online agora</span>
@@ -141,39 +141,33 @@ function MindChat() {
         </div>
         <div className="ml-auto flex items-center gap-2">
           <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-             className="font-mono text-[10px] px-2.5 py-1.5 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm flex items-center gap-1">
+             className="font-mono text-[10px] px-2.5 py-1.5 border border-[#252b3b] text-[#7a8398] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-md flex items-center gap-1">
             via Telegram ↗
           </a>
-          <button onClick={reset} title="Reiniciar conversa"
-            className="w-6 h-6 rounded-sm border border-[#2a3142] text-[#5A6275] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors flex items-center justify-center text-[12px]">
+          <button onClick={reset} title="Reiniciar"
+            className="w-7 h-7 rounded-md border border-[#252b3b] text-[#5A6275] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors flex items-center justify-center text-[13px]">
             ↺
           </button>
         </div>
       </div>
 
       {/* Mensagens */}
-      <div ref={boxRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5 bg-gradient-to-b from-[#07090e] to-[#060708]">
+      <div ref={boxRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-[#090b11]">
         {msgs.map((m, i) => (
-          <div key={i} className={`flex items-end gap-1.5 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            {m.role === 'assistant' && (
-              <img src="/logo-mind.png" alt="Mind" className="w-5 h-5 rounded-full object-contain flex-shrink-0 mb-0.5 border border-[#FF5500]/30" />
-            )}
-            <div>
-              <div className={`max-w-[75%] px-3 py-2 text-[12px] leading-relaxed rounded-md whitespace-pre-line ${
-                m.role === 'user'
-                  ? 'bg-[#FF5500] text-black font-medium rounded-br-none'
-                  : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#cfd6e4] rounded-bl-none'
-              }`}>{m.content}</div>
-              <div className={`text-[10px] text-[#3a4154] mt-0.5 font-mono ${m.role === 'user' ? 'text-right' : 'text-left'}`}>
-                {m.role === 'assistant' ? 'Mind • agora' : 'Você • agora'}
-              </div>
+          <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
+            <div className={`max-w-[85%] px-3.5 py-2.5 text-[13px] leading-relaxed rounded-2xl whitespace-pre-line ${
+              m.role === 'user'
+                ? 'bg-[#FF5500] text-black font-medium rounded-br-sm'
+                : 'bg-[#131720] border border-[#1e2330] text-[#c8d0e0] rounded-bl-sm'
+            }`}>{m.content}</div>
+            <div className="text-[10px] text-[#3a4154] mt-1 font-mono px-1">
+              {m.role === 'assistant' ? 'Mind • agora' : 'Você • agora'}
             </div>
           </div>
         ))}
         {loading && (
-          <div className="flex justify-start items-end gap-1.5">
-            <img src="/logo-mind.png" alt="Mind" className="w-5 h-5 rounded-full object-contain flex-shrink-0 border border-[#FF5500]/30" />
-            <div className="bg-[#0d1018] border border-[#FF5500]/20 px-3 py-2 rounded-md rounded-bl-none">
+          <div className="flex flex-col items-start">
+            <div className="bg-[#131720] border border-[#1e2330] px-3.5 py-2.5 rounded-2xl rounded-bl-sm">
               <div className="flex gap-1 items-center">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-bounce" style={{animationDelay:'0ms'}}/>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-bounce" style={{animationDelay:'150ms'}}/>
@@ -184,17 +178,17 @@ function MindChat() {
         )}
       </div>
 
-      {/* Rodapé */}
-      <div className="px-3 py-2.5 border-t border-[#FF5500]/20 bg-[#08090f] flex gap-2">
+      {/* Input */}
+      <div className="px-4 py-3 border-t border-[#1e2330] bg-[#0d0f18] flex gap-2 items-center">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
           placeholder="Digite sua mensagem..."
-          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-3 py-2 text-[12px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
+          className="flex-1 bg-[#090b11] border border-[#1e2330] rounded-xl px-4 py-2.5 text-[13px] outline-none focus:border-[#FF5500]/50 transition-all placeholder:text-[#3a4154] text-[#e8ecf4]"
         />
         <button onClick={send} disabled={loading}
-          className="w-9 h-9 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40 flex items-center justify-center text-[14px]">
+          className="w-9 h-9 rounded-xl bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40 flex items-center justify-center text-[14px] flex-shrink-0">
           ➤
         </button>
       </div>
@@ -479,7 +473,7 @@ export default function App() {
 
       {/* CHAT */}
       <section id="mind" className="relative z-10 py-20 px-6">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-xl mx-auto">
           <div className="reveal mb-12 text-center">
             <div className="font-mono text-[12px] text-[#FF5500] mb-3 tracking-[0.25em]">// EXPERIMENTE AGORA</div>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">Converse com a <span className="text-[#00FFE5] glow-ice">Mind.</span></h2>
