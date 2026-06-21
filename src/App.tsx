@@ -95,20 +95,14 @@ function MindChat() {
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [conversas, setConversas] = useState<number | null>(null)
   const boxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { boxRef.current?.scrollTo({ top: boxRef.current.scrollHeight, behavior: 'smooth' }) }, [msgs, loading])
 
-  const fetchStats = useCallback(async () => {
-    try {
-      const res = await fetch(API_URL + '/stats')
-      const data = await res.json()
-      setConversas(data.conversas ?? null)
-    } catch { }
-  }, [])
-
-  useEffect(() => { fetchStats() }, [])
+  const reset = () => {
+    setMsgs([{ role: 'assistant', content: 'Oi, eu sou a Mind.\nUma agente de IA ligada ao Claude.\nPosso te ensinar a criar bots, prompts, agentes e automações.\nMe pergunte o que você quer automatizar.' }])
+    setInput('')
+  }
 
   const send = useCallback(async () => {
     const text = input.trim()
@@ -130,53 +124,72 @@ function MindChat() {
       setMsgs((m) => [...m, { role: 'assistant', content: 'Conexão indisponível. Me chama no Telegram que respondo na hora.' }])
     } finally {
       setLoading(false)
-      fetchStats()
     }
   }, [input, loading, msgs])
 
   return (
-    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 560 }}>
-      <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
-        <img src="/logo-mind.png" alt="Mind" className="w-11 h-11 rounded-full object-contain flex-shrink-0" />
+    <div className="hud-box tech-border overflow-hidden flex flex-col" style={{ height: 520 }}>
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#0d0f16] to-[#0f1220] border-b border-[#FF5500]/30">
+        <img src="/logo-mind.png" alt="Mind" className="w-9 h-9 rounded-full object-contain flex-shrink-0 border border-[#FF5500]/40" />
         <div>
-          <div className="font-bold tracking-wide">MIND</div>
-          <div className="font-mono text-[11px] text-[#00FFE5] flex items-center gap-1.5 tracking-wider">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] live-dot" /> NEURAL INTERFACE ACTIVE
+          <div className="font-bold text-[14px] tracking-wide text-[#E8ECF4]">Mind — MindSette.AI</div>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00FFE5] live-dot" />
+            <span className="font-mono text-[10px] text-[#00FFE5] tracking-wider">Online agora</span>
           </div>
         </div>
-        <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-           className="ml-auto font-mono text-xs px-3.5 py-2 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm">
-          ✈ TELEGRAM
-        </a>
+        <div className="ml-auto flex items-center gap-2">
+          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
+             className="font-mono text-[11px] px-3 py-1.5 border border-[#2a3142] text-[#00FFE5] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors rounded-sm flex items-center gap-1">
+            via Telegram ↗
+          </a>
+          <button onClick={reset} title="Reiniciar conversa"
+            className="w-7 h-7 rounded-sm border border-[#2a3142] text-[#5A6275] hover:border-[#FF5500] hover:text-[#FF5500] transition-colors flex items-center justify-center text-[14px]">
+            ↺
+          </button>
+        </div>
       </div>
-      <div ref={boxRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-[#07090e] to-[#060708]">
+
+      {/* Mensagens */}
+      <div ref={boxRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gradient-to-b from-[#07090e] to-[#060708]">
         {msgs.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] px-4 py-3 text-[15px] leading-relaxed rounded-md whitespace-pre-line ${
+            {m.role === 'assistant' && (
+              <img src="/logo-mind.png" alt="Mind" className="w-6 h-6 rounded-full object-contain flex-shrink-0 mr-2 mt-1 border border-[#FF5500]/30" />
+            )}
+            <div className={`max-w-[78%] px-3 py-2.5 text-[13px] leading-relaxed rounded-md whitespace-pre-line ${
               m.role === 'user'
-                ? 'bg-[#FF5500] text-black font-medium'
-                : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#dde3f0] shadow-[0_0_12px_rgba(255,85,0,0.05)]'
+                ? 'bg-[#FF5500] text-black font-medium rounded-br-none'
+                : 'bg-[#0d1018] border border-[#FF5500]/20 text-[#cfd6e4] rounded-bl-none'
             }`}>{m.content}</div>
           </div>
         ))}
         {loading && (
-          <div className="flex justify-start">
-            <div className="bg-[#10131c] border border-[#1c2230] px-4 py-3 rounded-md font-mono text-sm text-[#00FFE5]">
-              processando<span className="cursor-blink">_</span>
+          <div className="flex justify-start items-center gap-2">
+            <img src="/logo-mind.png" alt="Mind" className="w-6 h-6 rounded-full object-contain flex-shrink-0 border border-[#FF5500]/30" />
+            <div className="bg-[#0d1018] border border-[#FF5500]/20 px-3 py-2.5 rounded-md rounded-bl-none">
+              <div className="flex gap-1 items-center">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-bounce" style={{animationDelay:'0ms'}}/>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-bounce" style={{animationDelay:'150ms'}}/>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-bounce" style={{animationDelay:'300ms'}}/>
+              </div>
             </div>
           </div>
         )}
       </div>
-      <div className="p-4 border-t border-[#FF5500]/20 bg-[#08090f] flex gap-3">
+
+      {/* Rodapé */}
+      <div className="px-4 py-3 border-t border-[#FF5500]/20 bg-[#08090f] flex gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
-          placeholder="pergunte sobre bots, prompts, agentes, Claude, Python..."
-          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-4 py-3.5 text-[15px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] focus:shadow-[0_0_16px_rgba(255,85,0,0.08)] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
+          placeholder="Digite sua mensagem..."
+          className="flex-1 bg-[#0a0c14] border border-[#2a3346] rounded-sm px-3 py-2.5 text-[13px] font-mono outline-none focus:border-[#FF5500]/70 focus:bg-[#0c0e1a] transition-all placeholder:text-[#3d4658] text-[#e8ecf4]"
         />
         <button onClick={send} disabled={loading}
-          className="px-6 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40">
+          className="w-10 h-10 rounded-sm bg-[#FF5500] text-black font-bold hover:brightness-110 active:scale-95 transition disabled:opacity-40 flex items-center justify-center text-[16px]">
           ➤
         </button>
       </div>
